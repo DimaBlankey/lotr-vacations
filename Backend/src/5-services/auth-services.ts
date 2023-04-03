@@ -11,8 +11,10 @@ async function register(user: UserModel): Promise<string> {
 
   // Is username taken:
   const isTaken = await isUserEmailTaken(user.email);
-  if (isTaken)
-    throw new ValidationError(`Email ${user.email} already taken`);
+  if (isTaken) throw new ValidationError(`Email ${user.email} already taken`);
+
+  // Hash password:
+  user.password = cyber.hashPassword(user.password);
 
   // Set role as a regular user:
   user.role === "user";
@@ -45,7 +47,6 @@ async function register(user: UserModel): Promise<string> {
   return token;
 }
 
-
 async function isUserEmailTaken(email: string): Promise<boolean> {
   // Create query:
   const sql = `SELECT EXISTS(SELECT * FROM users WHERE email = ? ) AS isTaken`;
@@ -63,6 +64,9 @@ async function isUserEmailTaken(email: string): Promise<boolean> {
 // Login:
 async function login(credentials: CredentialsModel): Promise<string> {
   // TODO: Joi Validation...
+
+  // Hash password:
+  credentials.password = cyber.hashPassword(credentials.password);
 
   // Query:
   const sql = `SELECT * FROM users WHERE

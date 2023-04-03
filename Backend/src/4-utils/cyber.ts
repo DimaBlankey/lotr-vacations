@@ -2,11 +2,16 @@ import UserModel from "../2-models/user-model";
 import jwt from "jsonwebtoken";
 import { Request } from "express";
 import { UnauthorizedError } from "../2-models/client-errors";
+import crypto from "crypto";
+
 
 const secretKey = "sam is gay!";
 
 // Create new token:
 function createToken(user: UserModel): string {
+
+    // Delete password before creating the token:
+    delete user.password;
 
     // Create container containing the user:
     const container = { user };
@@ -107,9 +112,23 @@ async function verifyAdmin(request: Request): Promise<boolean> {
     });
 }
 
+// Hash password:
+function hashPassword(plainText: string): string {
+
+    const salt = "samAndFrodoShouldHaveKissed";
+
+    // Hash with salt:
+    const hashedText = crypto.createHmac("sha512", salt).update(plainText).digest("hex");
+
+    return hashedText;
+}
+
+
+
 export default {
     createToken,
     verifyToken,
     verifyAdmin,
+    hashPassword,
     secretKey
 };
