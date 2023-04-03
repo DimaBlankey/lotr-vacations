@@ -6,11 +6,24 @@ import catchAll from "./3-middleware/catch-all";
 import appConfig from "./4-utils/app-config";
 import authRoute from "./6-routes/auth-routes";
 import expressFileUpload from "express-fileupload";
+import preventXss from "./3-middleware/prevent-xss";
+import expressRateLimit from "express-rate-limit";
+import helmet from "helmet";
 
 const server = express();
 
-server.use(cors());
+server.use(
+  expressRateLimit({
+    windowMs: 1000,
+    max: 10,
+  })
+);
+
+server.use(helmet());
+
+server.use(cors({ origin: "http://localhost:3000" }));
 server.use(express.json());
+server.use(preventXss);
 server.use(expressFileUpload());
 server.use("/api", dataRoutes);
 server.use("/api", authRoute);

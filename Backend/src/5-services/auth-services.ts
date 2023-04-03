@@ -4,10 +4,11 @@ import CredentialsModel from "../2-models/credentials-model";
 import UserModel from "../2-models/user-model";
 import cyber from "../4-utils/cyber";
 import dal from "../4-utils/dal";
+import logger from "../4-utils/logger";
 
 // Register new user:
 async function register(user: UserModel): Promise<string> {
-  // TODO: Joi Validation...
+  user.validateUserPost();
 
   // Is username taken:
   const isTaken = await isUserEmailTaken(user.email);
@@ -17,7 +18,7 @@ async function register(user: UserModel): Promise<string> {
   user.password = cyber.hashPassword(user.password);
 
   // Set role as a regular user:
-  user.role === "user";
+  user.role = "user";
 
   // Create query:
   const sql = `INSERT INTO users VALUES(
@@ -43,6 +44,9 @@ async function register(user: UserModel): Promise<string> {
   // Create token:
   const token = cyber.createToken(user);
 
+  // Log activity:
+  logger.logActivity(user.email + " has signed up");
+
   // Return token:
   return token;
 }
@@ -63,7 +67,7 @@ async function isUserEmailTaken(email: string): Promise<boolean> {
 
 // Login:
 async function login(credentials: CredentialsModel): Promise<string> {
-  // TODO: Joi Validation...
+  credentials.validateCredentials();
 
   // Hash password:
   credentials.password = cyber.hashPassword(credentials.password);
@@ -87,6 +91,9 @@ async function login(credentials: CredentialsModel): Promise<string> {
 
   // Create token:
   const token = cyber.createToken(user);
+
+  // Log activity:
+  logger.logActivity(credentials.email + " has logged in.");
 
   // Return token:
   return token;

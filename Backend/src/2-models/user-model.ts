@@ -23,13 +23,13 @@ class UserModel {
     lastName: Joi.string().required().min(2).max(50),
     email: Joi.string().email().required(),
     password: Joi.string()
-      .pattern(new RegExp("^[a-zA-Z0-9]{8,30}$"))
+      .pattern(new RegExp("^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{}|;':\",./?]{8,30}$"))
       .required()
       .messages({
         "string.pattern.base":
-          "Password must be between 8 and 30 characters and contain only letters and numbers",
+          "Password must be between 8 and 30 characters",
       }),
-    role: Joi.string().forbidden(),
+    role: Joi.string().optional(),
   });
 
   private static putValidationSchema = Joi.object({
@@ -38,11 +38,11 @@ class UserModel {
     lastName: Joi.string().required().min(2).max(50),
     email: Joi.string().email().required(),
     password: Joi.string()
-      .pattern(new RegExp("^[a-zA-Z0-9]{8,30}$"))
+      .pattern(new RegExp("^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{}|;':\",./?]{8,30}$"))
       .required()
       .messages({
         "string.pattern.base":
-          "Password must be between 8 and 30 characters and contain only letters and numbers",
+          "Password must be between 8 and 30 characters",
       }),
     role: Joi.string().forbidden(),
   });
