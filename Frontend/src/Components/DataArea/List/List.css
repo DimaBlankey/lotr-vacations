@@ -1,0 +1,16 @@
+.List table {
+  margin: auto;
+}
+
+.List table,
+.List td,
+.List th {
+  border: 2px solid black;
+  color: black;
+  padding: 10px;
+  border-collapse: collapse;
+}
+
+.List a {
+  color: black;
+}
