@@ -3,14 +3,25 @@ body,
 #root {
   height: 100%;
   text-align: center;
-  font-size: x-large;
+  font-size: large;
   /* background-image: linear-gradient(magenta, darkmagenta); */
   background-image: url("../../Backend/src/1-assets/images/background-images/old-compass.jpg");
   background-size: cover;
   background-position: center;
+  box-sizing: border-box;
   color: black;
 }
 
 a {
   /* color: blue; */
+}
+
+.notyf__notification--success {
+  color: green;
+  font-weight: bold;
+}
+
+.notyf__notification--error {
+  color: red;
+  font-weight: bold;
 }

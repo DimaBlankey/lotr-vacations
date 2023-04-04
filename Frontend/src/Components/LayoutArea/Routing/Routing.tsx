@@ -5,12 +5,14 @@ import AddVacations from "../../VacationsArea/AddVacations/AddVacations";
 import UpdateVacations from "../../VacationsArea/UpdateVacations/UpdateVacations";
 import VacationsList from "../../VacationsArea/VacationsList/VacationsList";
 import SignUp from "../../AuthArea/SignUp/SignUp";
+import Login from "../../AuthArea/Login/Login";
 
 function Routing(): JSX.Element {
     return (
         <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/vacations" element={<VacationsList />} />
             <Route path="/add-vacations" element={<AddVacations/>} />
             <Route path="/update-vacation/:itemId" element={<UpdateVacations/>} />

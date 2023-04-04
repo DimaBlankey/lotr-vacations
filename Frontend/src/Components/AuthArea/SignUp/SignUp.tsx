@@ -18,6 +18,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import authService from "../../../Services/AuthService";
 import { NavLink, useNavigate } from "react-router-dom";
+import notifyService from "../../../Services/NotifyService";
 
 function SignUp(): JSX.Element {
   const {
@@ -30,10 +31,10 @@ function SignUp(): JSX.Element {
   async function send(user: UserModel) {
     try {
       await authService.signUp(user);
-      alert("Welcome");
-      navigate("/home");
+      notifyService.success("Welcome!");
+      navigate("/vacations");
     } catch (err: any) {
-      alert(err.message);
+      notifyService.error(err);
     }
   }
 
