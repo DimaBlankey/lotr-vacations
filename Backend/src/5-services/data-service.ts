@@ -6,18 +6,6 @@ import FollowersModel from "../2-models/followers-model";
 import appConfig from "../4-utils/app-config";
 import imageHandler from "../4-utils/image-handler";
 
-// async function getAllCategories(): Promise<FollowersModel[]> {
-//   const sql = "SELECT * FROM Category";
-//   const categories = await dal.execute(sql);
-//   return categories;
-// }
-
-// async function getItemsByCategory(categoryId: number): Promise<VacationModel[]> {
-//   const sql = "SELECT * FROM items WHERE categoryId = ? ";
-//   const itemsByCategory = await dal.execute(sql, [categoryId]);
-//   return itemsByCategory;
-// }
-
 async function getAllVacations(userId: number): Promise<VacationModel> {
   const sql = `
   SELECT DISTINCT
@@ -120,9 +108,42 @@ async function getVacationImageName(vacationId: number): Promise<string> {
   return imageName;
 }
 
+async function addFollowVacation(followers: FollowersModel): Promise<FollowersModel> {
+  followers.validateFollowerPost();
+
+  const sqlCheck =
+    "SELECT * FROM followers WHERE userId = ? AND vacationId = ?";
+  const rows = await dal.execute(sqlCheck, [
+    followers.userId,
+    followers.vacationId,
+  ]);
+
+  if (rows.length > 0) {
+    // The combination already exists, return the existing followers object
+    return rows[0];
+  } else {
+    // The combination does not exist, insert the new followers object
+    const sqlInsert = "INSERT INTO followers VALUES(?, ?)";
+    await dal.execute(sqlInsert, [followers.userId, followers.vacationId]);
+    return followers;
+  }
+}
+
+async function deleteFollower(followers: FollowersModel): Promise<void> {
+  const sql = "DELETE FROM followers WHERE userId = ? AND vacationId = ?";
+  const result: OkPacket = await dal.execute(sql, [
+    followers.userId,
+    followers.vacationId,
+  ]);
+  if (result.affectedRows === 0)
+    throw new ResourceNotFoundError(followers.vacationId);
+}
+
 export default {
   getAllVacations,
   deleteVacation,
   addVacation,
   updateVacation,
+  addFollowVacation,
+  deleteFollower,
 };

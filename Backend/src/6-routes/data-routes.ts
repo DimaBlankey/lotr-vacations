@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import cyber from "../4-utils/cyber";
 import verifyAdmin from "../3-middleware/verify-admin";
 import imageHandler from "../4-utils/image-handler";
+import FollowersModel from "../2-models/followers-model";
 
 const router = express.Router();
 
@@ -24,20 +25,6 @@ router.get(
     }
   }
 );
-
-// router.get(
-//   "/items-per-categories/:categoryId",
-//   async (request: Request, response: Response, next: NextFunction) => {
-//     try {
-//       const categoryId = +request.params.categoryId;
-//       const items = await dataService.getItemsByCategory(categoryId);
-//       response.json(items);
-//     } catch (err: any) {
-//       next(err);
-//     }
-//   }
-// );
-
 
 router.post(
   "/vacations",
@@ -84,17 +71,6 @@ router.put(
   }
 );
 
-// router.get("/items/:itemId([0-9]+)",  async (request: Request, response: Response, next: NextFunction) => {
-//   try {
-//       const itemId = +request.params.itemId;
-//       const item = await dataService.getOneItem(itemId);
-//       response.json(item);
-//   }
-//   catch (err: any) {
-//       next(err);
-//   }
-// });
-
 router.get(
   "/vacations/images/:imageName",
   verifyLoggedIn,
@@ -108,5 +84,51 @@ router.get(
     }
   }
 );
+
+router.post(
+  "/followers/:vacationId([0-9]+)",
+  verifyLoggedIn,
+  async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const token = request.headers.authorization.split(" ")[1];
+      const decodedToken = jwt.verify(token, cyber.secretKey);
+    
+      request.body.userId = decodedToken.user.userId;
+      request.body.vacationId = +request.params.vacationId;
+
+      const follower = new FollowersModel(request.body);
+      const addedFollower = await dataService.addFollowVacation(follower);
+      response.status(201).json(addedFollower);
+    } catch (err: any) {
+      next(err);
+    }
+  }
+);
+
+router.delete(
+  "/followers/:vacationId([0-9]+)",
+  verifyLoggedIn,
+  async (request: Request, response: Response, next: NextFunction) => {
+    try {
+
+      const token = request.headers.authorization.split(" ")[1];
+      const decodedToken = jwt.verify(token, cyber.secretKey);
+    
+      request.body.userId = decodedToken.user.userId;
+      request.body.vacationId = +request.params.vacationId;
+
+      const follower = new FollowersModel(request.body);
+      
+      await dataService.deleteFollower(follower);
+      response.sendStatus(204);
+    } catch (err: any) {
+      next(err);
+    }
+  }
+);
+
+
+
+
 
 export default router;
