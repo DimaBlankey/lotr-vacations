@@ -25,3 +25,7 @@ a {
   color: red;
   font-weight: bold;
 }
+
+.notyf__toast{
+  border-radius: 10px;
+}

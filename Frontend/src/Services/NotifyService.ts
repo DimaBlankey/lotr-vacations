@@ -3,7 +3,7 @@ import { Notyf } from "notyf";
 class NotifyService {
   private notyf = new Notyf({
     duration: 3000,
-    position: { x: "right", y: "top" },
+    position: { x: "center", y: "center" },
     types: [
       {
         type: "success",
@@ -18,6 +18,7 @@ class NotifyService {
         className:"notyf__notification--error",
       },
     ],
+    dismissible: true,
   });
 
   public success(message: string): void {
