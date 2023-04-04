@@ -2,8 +2,8 @@ import Joi from "joi";
 import { ValidationError } from "./client-errors";
 
 class CredentialsModel {
-  public email: string;
-  public password: string;
+   email: string;
+   password: string;
 
   public constructor(credentials: CredentialsModel) {
     this.email = credentials.email;

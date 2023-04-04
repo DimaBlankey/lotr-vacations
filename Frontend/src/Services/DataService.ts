@@ -1,44 +1,37 @@
 import axios from "axios";
 import appConfig from "../Utils/AppConfig";
-import CategoryModel from "../Models/CategoryModel";
-import ItemModel from "../Models/ItemModel";
+import VacationModel from "../Models/VacationModel";
+import FollowersModel from "../Models/FollowersModel";
 
 class DataService {
-  public async getAllCategories(): Promise<CategoryModel[]> {
-    const response = await axios.get<CategoryModel[]>(appConfig.categoriesUrl);
+  public async getAllVacations(): Promise<VacationModel[]> {
+    const response = await axios.get<VacationModel[]>(appConfig.vacationsUrl);
     const categories = response.data;
     return categories;
   }
 
-  public async getItemsByCategory(categoryId: number): Promise<ItemModel[]> {
-    const response = await axios.get<ItemModel[]>(
-      appConfig.itemsByCategoriesUrl + categoryId
+  public async addVacation(vacation: VacationModel): Promise<void> {
+    await axios.post<VacationModel>(appConfig.vacationsUrl, vacation);
+  }
+
+  public async deleteVacation(vacationId: number): Promise<void> {
+    await axios.delete(appConfig.vacationsUrl + vacationId);
+  }
+
+  public async updateVacation(vacation: VacationModel): Promise<void> {
+    const response = await axios.put<VacationModel>(
+      appConfig.vacationsUrl + vacation.vacationId,
+      vacation
     );
-    const items = response.data;
-    return items;
+    const updatedVacation = response.data;
   }
 
-  public async addItem(item: ItemModel): Promise<void> {
-    const response = await axios.post<ItemModel>(appConfig.itemsUrl, item);
-    const addedItem = response.data;
+  public async addFollowVacation(followers: FollowersModel): Promise<void> {
+    await axios.post<FollowersModel>(appConfig.followersUrl, followers);
   }
 
-  public async deleteItem(itemId: number): Promise<void> {
-    await axios.delete(appConfig.itemsUrl + itemId);
-  }
-
-  public async updateItem(item: ItemModel): Promise<void> {
-    const response = await axios.put<ItemModel>(
-      appConfig.itemsUrl + item.itemId,
-      item
-    );
-    const updatedItem = response.data;
-  }
-
-  public async getOneItem(itemId: number): Promise<ItemModel> {
-    const response = await axios.get<ItemModel>(appConfig.itemsUrl + itemId);
-    const item = response.data;
-    return item;
+  public async deleteFollower(vacationId: number): Promise<void> {
+    await axios.delete(appConfig.followersUrl + vacationId);
   }
 }
 

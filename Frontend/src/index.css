@@ -1,12 +1,16 @@
-html, body, #root {
-    height: 100%;
-    text-align: center;
-    font-size: x-large;
-    background-image: linear-gradient(magenta, darkmagenta);
-    color: white;
+html,
+body,
+#root {
+  height: 100%;
+  text-align: center;
+  font-size: x-large;
+  /* background-image: linear-gradient(magenta, darkmagenta); */
+  background-image: url("../../Backend/src/1-assets/images/background-images/old-compass.jpg");
+  background-size: cover;
+  background-position: center;
+  color: black;
 }
 
 a {
-    color: blue;
+  /* color: blue; */
 }
-
