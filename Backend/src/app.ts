@@ -15,13 +15,15 @@ const server = express();
 server.use(
   expressRateLimit({
     windowMs: 1000,
-    max: 10,
+    max: 25,
   })
 );
 
-server.use(helmet());
+// server.use(helmet());
 
-server.use(cors({ origin: "http://localhost:3000" }));
+server.use(cors({
+  origin: "*"
+}));
 server.use(express.json());
 server.use(preventXss);
 server.use(expressFileUpload());

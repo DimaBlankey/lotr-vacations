@@ -73,7 +73,7 @@ router.put(
 
 router.get(
   "/vacations/images/:imageName",
-  verifyLoggedIn,
+  // verifyLoggedIn,
   async (request: Request, response: Response, next: NextFunction) => {
     try {
       const imageName = request.params.imageName;
