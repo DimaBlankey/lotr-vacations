@@ -1,3 +1,4 @@
+import VacationsList from "../../VacationsArea/VacationsList/VacationsList";
 import Header from "../Header/Header";
 import Menu from "../Menu/Menu";
 import Routing from "../Routing/Routing";
@@ -12,6 +13,8 @@ function Layout(): JSX.Element {
 			<Header />
 
             <Routing />
+
+            {/* <VacationsList></VacationsList> */}
             
         </div>
     );

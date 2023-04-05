@@ -6,26 +6,27 @@ import notifyService from "../../../Services/NotifyService";
 import VacationCard from "../VacationCard/VacationCard";
 
 function VacationsList(): JSX.Element {
+  const [vacations, setVacations] = useState<VacationModel[]>([]);
 
-    const [vacations, setVacations] = useState<VacationModel[]>([]);
+  useEffect(() => {
+    dataService
+      .getAllVacations()
+      .then((responseVacations) => {
+        setVacations(responseVacations);
+        // console.log(responseVacations)
+      })
+      .catch((err) => notifyService.error(err));
+  }, []);
 
-    useEffect(() => {
-        dataService
-          .getAllVacations()
-          .then((responseVacations) => {
-            setVacations(responseVacations);
-            // console.log(responseVacations)
-          })
-          .catch((err) => notifyService.error(err));
-      }, []);
-    
-    return (
-        <div className="VacationsList">
-			<div>
-            {vacations.map(v => <VacationCard key={v.vacationId} vacation={v} />)}
-            </div>
+  return (
+    <div className="VacationsList">
+      {vacations.map((v) => (
+        <div key={v.vacationId} className="vacation-card">
+          <VacationCard vacation={v} />
         </div>
-    );
+      ))}
+    </div>
+  );
 }
 
 export default VacationsList;
