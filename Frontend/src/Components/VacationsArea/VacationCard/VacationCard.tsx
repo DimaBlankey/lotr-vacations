@@ -20,6 +20,8 @@ import UserModel from "../../../Models/UserModel";
 import dataService from "../../../Services/DataService";
 import FollowersModel from "../../../Models/FollowersModel";
 import { authStore } from "../../../Redux/AuthState";
+import { VacationsAction, VacationsState, vacationsStore } from "../../../Redux/VacationsState";
+import { Store } from "redux";
 
 interface VacationCardProps {
   vacation: VacationModel;
@@ -35,6 +37,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
     return () => unsubscribe();
   }, []);
 
+
   function handleFollow() {
     if (props.vacation.isFollowing === 0) {
       const follower = new FollowersModel();
@@ -46,6 +49,30 @@ function VacationCard(props: VacationCardProps): JSX.Element {
       dataService.deleteFollower(vacationId);
     }
   }
+
+  // function handleFollow() {
+  //   if (props.vacation.isFollowing === 0) {
+  //     const updatedVacation = new VacationModel();
+  //     updatedVacation.vacationId = props.vacation.vacationId;
+  //     updatedVacation.destination = props.vacation.destination;
+  //     updatedVacation.description = props.vacation.description;
+  //     updatedVacation.startDate = props.vacation.startDate;
+  //     updatedVacation.endDate = props.vacation.endDate;
+  //     updatedVacation.price = props.vacation.price;
+  //     updatedVacation.image = props.vacation.image as File;
+  //     updatedVacation.imageUrl = props.vacation.imageUrl;
+  //     updatedVacation.followersCount = props.vacation.followersCount;
+  //     updatedVacation.isFollowing = props.vacation.isFollowing;
+  //     dataService.addFollowVacation(updatedVacation);
+  //   } else {
+  //     const vacationId = +props.vacation.vacationId;
+  //     dataService.deleteFollower(vacationId);
+  //   }
+  // }
+
+
+
+
 
   function formatDate(date: string): string {
     const dateObj = new Date(date);
@@ -143,3 +170,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
 }
 
 export default VacationCard;
+function useSelector(vacationsStore: Store<VacationsState, VacationsAction>) {
+  throw new Error("Function not implemented.");
+}
+

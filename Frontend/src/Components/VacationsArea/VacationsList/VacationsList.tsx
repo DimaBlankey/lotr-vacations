@@ -13,7 +13,6 @@ function VacationsList(): JSX.Element {
       .getAllVacations()
       .then((responseVacations) => {
         setVacations(responseVacations);
-        // console.log(responseVacations)
       })
       .catch((err) => notifyService.error(err));
   }, []);
