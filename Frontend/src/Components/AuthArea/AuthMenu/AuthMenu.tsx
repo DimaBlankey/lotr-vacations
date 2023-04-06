@@ -5,6 +5,7 @@ import { authStore } from "../../../Redux/AuthState";
 import { NavLink, useNavigate } from "react-router-dom";
 import authService from "../../../Services/AuthService";
 import notifyService from "../../../Services/NotifyService";
+import { VacationsActionType, vacationsStore } from "../../../Redux/VacationsState";
 
 function AuthMenu(): JSX.Element {
   const [user, setUser] = useState<UserModel>();
@@ -22,6 +23,10 @@ function AuthMenu(): JSX.Element {
       authService.logout();
       notifyService.success("Goodby!");
       navigate("/home");
+      vacationsStore.dispatch({
+        type: VacationsActionType.ClearState,
+        payload: undefined
+      });
   }
 
   return (

@@ -1,6 +1,7 @@
 import VacationModel from "../../../Models/VacationModel";
 import "./VacationCard.css";
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -15,13 +16,37 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { NavLink } from "react-router-dom";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import UserModel from "../../../Models/UserModel";
+import dataService from "../../../Services/DataService";
+import FollowersModel from "../../../Models/FollowersModel";
+import { authStore } from "../../../Redux/AuthState";
 
 interface VacationCardProps {
   vacation: VacationModel;
 }
 
 function VacationCard(props: VacationCardProps): JSX.Element {
-  
+  const [user, setUser] = useState<UserModel>();
+  useEffect(() => {
+    setUser(authStore.getState().user);
+    const unsubscribe = authStore.subscribe(() => {
+      setUser(authStore.getState().user);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  function handleFollow() {
+    if (props.vacation.isFollowing === 0) {
+      const follower = new FollowersModel();
+      follower.userId = user.userId;
+      follower.vacationId = +props.vacation.vacationId;
+      dataService.addFollowVacation(follower);
+    } else {
+      const vacationId = +props.vacation.vacationId;
+      dataService.deleteFollower(vacationId);
+    }
+  }
+
   function formatDate(date: string): string {
     const dateObj = new Date(date);
     const options: Intl.DateTimeFormatOptions = {
@@ -94,8 +119,15 @@ function VacationCard(props: VacationCardProps): JSX.Element {
           </Typography>
         </CardContent>
         <CardActions disableSpacing sx={{ position: "relative" }}>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
+          <IconButton aria-label="add to follow" onClick={handleFollow}>
+            {props.vacation.isFollowing === 1 ? (
+              <FavoriteIcon style={{ color: "red" }} />
+            ) : (
+              <FavoriteIcon />
+            )}
+            <Typography variant="body2" color="text.secondary">
+              {props.vacation.followersCount}
+            </Typography>
           </IconButton>
           <Typography
             variant="body2"

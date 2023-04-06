@@ -109,7 +109,7 @@ async function getVacationImageName(vacationId: number): Promise<string> {
 }
 
 async function addFollowVacation(followers: FollowersModel): Promise<FollowersModel> {
-  followers.validateFollowerPost();
+  // followers.validateFollowerPost();
 
   const sqlCheck =
     "SELECT * FROM followers WHERE userId = ? AND vacationId = ?";

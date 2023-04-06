@@ -7,6 +7,8 @@ class VacationModel {
   price: number;
   imageUrl: string;
   image: File;
+  followersCount: number;
+  isFollowing: number;
 }
 
 export default VacationModel;
