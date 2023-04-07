@@ -6,30 +6,25 @@ import {
   Typography,
   FormHelperText,
   Box,
-  InputAdornment,
-  IconButton,
-  TextareaAutosize,
-  TextFieldProps,
+  FormLabel,
+  Input,
 } from "@mui/material";
-import { FiEye, FiEyeOff } from "react-icons/fi";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import EmailIcon from "@mui/icons-material/Email";
-import LockIcon from "@mui/icons-material/Lock";
 import UserModel from "../../../Models/UserModel";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
 import authService from "../../../Services/AuthService";
 import { NavLink, useNavigate } from "react-router-dom";
 import notifyService from "../../../Services/NotifyService";
 import VacationModel from "../../../Models/VacationModel";
 import dataService from "../../../Services/DataService";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import DatePicker from "@mui/lab/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 function AddVacations(): JSX.Element {
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<VacationModel>();
@@ -37,6 +32,7 @@ function AddVacations(): JSX.Element {
 
   async function send(vacation: VacationModel) {
     try {
+      vacation.image = (vacation.image as unknown as FileList)[0];
       await dataService.addVacation(vacation);
       notifyService.success("Vacation has been added!");
       navigate("/vacations");
@@ -45,9 +41,13 @@ function AddVacations(): JSX.Element {
     }
   }
 
-  function setStartDate(newValue: any) {
-    throw new Error("Function not implemented.");
-  }
+  const [image, setImage] = useState<File | null>(null);
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(event.target.files[0]);
+    }
+  };
 
   return (
     <div className="AddVacations">
@@ -76,8 +76,8 @@ function AddVacations(): JSX.Element {
           <form onSubmit={handleSubmit(send)}>
             <FormControl>
               <Box mt={2} mb={2}>
+                <FormLabel>Destination</FormLabel>
                 <TextField
-                  label="Destination"
                   placeholder="Destination..."
                   variant="outlined"
                   className="form-inputs"
@@ -86,13 +86,6 @@ function AddVacations(): JSX.Element {
                     minLength: 3,
                     maxLength: 100,
                   })}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <AccountCircleIcon fontSize="small" />
-                      </InputAdornment>
-                    ),
-                  }}
                 />
                 {errors.destination && (
                   <FormHelperText sx={{ fontSize: 12 }} error>
@@ -107,24 +100,18 @@ function AddVacations(): JSX.Element {
               </Box>
 
               <Box mt={2} mb={2}>
-                <TextareaAutosize
-                    aria-label="minimum height"
-                    minRows={3}
+                <FormLabel>Description</FormLabel>
+                <TextField
                   placeholder="Description..."
-                  //   variant="outlined"
+                  variant="outlined"
+                  multiline
+                  rows={4}
                   className="form-inputs"
                   {...register("description", {
                     required: true,
                     minLength: 10,
                     maxLength: 1000,
                   })}
-                  //   InputProps={{
-                  //     startAdornment: (
-                  //       <InputAdornment position="start">
-                  //         <AccountCircleIcon fontSize="small" />
-                  //       </InputAdornment>
-                  //     ),
-                  //   }}
                 />
                 {errors.description && (
                   <FormHelperText sx={{ fontSize: 12 }} error>
@@ -137,43 +124,115 @@ function AddVacations(): JSX.Element {
                   </FormHelperText>
                 )}
               </Box>
-
               <Box mt={2} mb={2}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    label="Start Date"
-                    //   value={startDate}
-                    onChange={(newValue: any) => {
-                      setStartDate(newValue);
-                    }}
-                    renderInput={(
-                      params: JSX.IntrinsicAttributes & TextFieldProps
-                    ) => <TextField {...params} />}
-                    {...register("startDate", { required: true })}
+                <FormLabel>Start Date</FormLabel>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <Controller
+                    name="startDate"
+                    control={control}
+                    defaultValue={null}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <DatePicker
+                        value={field.value}
+                        onChange={(newValue) => field.onChange(newValue)}
+                        // renderInput={(params : any) => <TextField {...params} />}
+                      />
+                    )}
                   />
                 </LocalizationProvider>
-                {errors.startDate && (
+                {errors.startDate && errors.startDate.type === "required" && (
                   <FormHelperText sx={{ fontSize: 12 }} error>
-                    Start Date is required
+                    Start date is required
                   </FormHelperText>
                 )}
               </Box>
 
+              <Box mt={2} mb={2}>
+                <FormLabel>End Date</FormLabel>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <Controller
+                    name="endDate"
+                    control={control}
+                    defaultValue={null}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <DatePicker
+                        value={field.value}
+                        onChange={(newValue) => field.onChange(newValue)}
+                        // renderInput={(params : any) => <TextField {...params} />}
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
+                {errors.startDate && errors.startDate.type === "required" && (
+                  <FormHelperText sx={{ fontSize: 12 }} error>
+                    Start date is required
+                  </FormHelperText>
+                )}
+              </Box>
+
+              <Box mt={2} mb={2}>
+                <FormLabel>Vacation Price</FormLabel>
+                <TextField
+                  placeholder="..."
+                  type="number"
+                  variant="outlined"
+                  className="form-inputs"
+                  {...register("price", {
+                    required: true,
+                    min: 0,
+                  })}
+                />
+                {errors.price && errors.price.type === "required" && (
+                  <FormHelperText sx={{ fontSize: 12 }} error>
+                    Price is required
+                  </FormHelperText>
+                )}
+                {errors.price && errors.price.type === "min" && (
+                  <FormHelperText sx={{ fontSize: 12 }} error>
+                    Price must be a positive number
+                  </FormHelperText>
+                )}
+              </Box>
+
+  {/* <input type="file" accept="image/*" {...register("image")} required /> */}
+
+  <Box mt={2} mb={2}>
+                <FormLabel>Upload Image</FormLabel>
+                <Input
+                  type="file"
+                  onChange={handleImageUpload}
+                
+                  required
+                />
+                {errors.image && (
+                  <FormHelperText sx={{ fontSize: 12 }} error>
+                    {errors.image.type === "required" && "Image is required"}
+                  </FormHelperText>
+                )}
+                {image && (
+                  <Box
+                    mt={2}
+                    mb={2}
+                    maxWidth="100%"
+                    maxHeight="300px"
+                    overflow="hidden"
+                  >
+                    <img
+                      src={URL.createObjectURL(image)}
+                      alt="uploaded-image"
+                      style={{ maxWidth: "100%", maxHeight: "100%" }}
+                    />
+                  </Box>
+                )}
+              </Box>
+
+
               <Button variant="contained" type="submit" color="primary">
-                Sign Me Up!
+                Add Vacation
               </Button>
             </FormControl>
-            <Box sx={{ mt: 2 }}>
-              <Typography variant="body2">
-                You already have an account?{" "}
-                <NavLink
-                  to="/login"
-                  style={{ fontWeight: "bold", color: "primary.main" }}
-                >
-                  Login
-                </NavLink>
-              </Typography>
-            </Box>
           </form>
         </Box>
       </Box>
