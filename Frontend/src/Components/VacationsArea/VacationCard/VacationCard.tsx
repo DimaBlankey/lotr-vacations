@@ -20,7 +20,11 @@ import UserModel from "../../../Models/UserModel";
 import dataService from "../../../Services/DataService";
 import FollowersModel from "../../../Models/FollowersModel";
 import { authStore } from "../../../Redux/AuthState";
-import { VacationsAction, VacationsState, vacationsStore } from "../../../Redux/VacationsState";
+import {
+  VacationsAction,
+  VacationsState,
+  vacationsStore,
+} from "../../../Redux/VacationsState";
 import { Store } from "redux";
 
 interface VacationCardProps {
@@ -29,6 +33,8 @@ interface VacationCardProps {
 
 function VacationCard(props: VacationCardProps): JSX.Element {
   const [user, setUser] = useState<UserModel>();
+  const [vacation, setVacation] = useState<VacationModel>(props.vacation);
+
   useEffect(() => {
     setUser(authStore.getState().user);
     const unsubscribe = authStore.subscribe(() => {
@@ -37,6 +43,9 @@ function VacationCard(props: VacationCardProps): JSX.Element {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    setVacation(props.vacation);
+  }, [props.vacation.isFollowing]);
 
   function handleFollow() {
     if (props.vacation.isFollowing === 0) {
@@ -69,10 +78,6 @@ function VacationCard(props: VacationCardProps): JSX.Element {
   //     dataService.deleteFollower(vacationId);
   //   }
   // }
-
-
-
-
 
   function formatDate(date: string): string {
     const dateObj = new Date(date);
@@ -110,14 +115,14 @@ function VacationCard(props: VacationCardProps): JSX.Element {
               >
                 <MenuItem
                   component={NavLink}
-                  to={`/update/${props.vacation.vacationId}`}
+                  to={`/update/${vacation.vacationId}`}
                   onClick={handleClose}
                 >
                   Update
                 </MenuItem>
                 <MenuItem
                   component={NavLink}
-                  to={`/delete/${props.vacation.vacationId}`}
+                  to={`/delete/${vacation.vacationId}`}
                   onClick={handleClose}
                 >
                   Delete
@@ -125,35 +130,31 @@ function VacationCard(props: VacationCardProps): JSX.Element {
               </Menu>
             </>
           }
-          title={props.vacation.destination}
+          title={vacation.destination}
           subheader={
-            formatDate(props.vacation.startDate) +
+            formatDate(vacation.startDate) +
             " - " +
-            formatDate(props.vacation.endDate)
+            formatDate(vacation.endDate)
           }
         />
-        <CardMedia
-          component="img"
-          height="194"
-          image={props.vacation.imageUrl}
-        />
+        <CardMedia component="img" height="194" image={vacation.imageUrl} />
         <CardContent
           sx={{ maxHeight: 100, overflow: "auto" }}
           className="scrollbar"
         >
           <Typography variant="body2" color="text.secondary">
-            {props.vacation.description}
+            {vacation.description}
           </Typography>
         </CardContent>
         <CardActions disableSpacing sx={{ position: "relative" }}>
           <IconButton aria-label="add to follow" onClick={handleFollow}>
-            {props.vacation.isFollowing === 1 ? (
+            {vacation.isFollowing === 1 ? (
               <FavoriteIcon style={{ color: "red" }} />
             ) : (
               <FavoriteIcon />
             )}
             <Typography variant="body2" color="text.secondary">
-              {props.vacation.followersCount}
+              {vacation.followersCount}
             </Typography>
           </IconButton>
           <Typography
@@ -161,7 +162,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
             color="text.primary"
             sx={{ position: "absolute", bottom: 15, right: 10 }}
           >
-            ${props.vacation.price}
+            ${vacation.price}
           </Typography>
         </CardActions>
       </Card>
@@ -173,4 +174,3 @@ export default VacationCard;
 function useSelector(vacationsStore: Store<VacationsState, VacationsAction>) {
   throw new Error("Function not implemented.");
 }
-

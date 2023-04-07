@@ -4,17 +4,19 @@ import VacationModel from "../../../Models/VacationModel";
 import dataService from "../../../Services/DataService";
 import notifyService from "../../../Services/NotifyService";
 import VacationCard from "../VacationCard/VacationCard";
+import { vacationsStore } from "../../../Redux/VacationsState";
 
 function VacationsList(): JSX.Element {
   const [vacations, setVacations] = useState<VacationModel[]>([]);
 
   useEffect(() => {
-    dataService
-      .getAllVacations()
-      .then((responseVacations) => {
-        setVacations(responseVacations);
-      })
-      .catch((err) => notifyService.error(err));
+    dataService.getAllVacations().catch((err) => notifyService.error(err));
+
+    const unsubscribe = vacationsStore.subscribe(() => {
+      const vacations = vacationsStore.getState().vacations;
+      setVacations(vacations);
+    });
+    return () => unsubscribe();
   }, []);
 
   return (

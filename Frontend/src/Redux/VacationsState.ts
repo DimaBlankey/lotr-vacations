@@ -25,6 +25,7 @@ export function vacationsReducer(
   action: VacationsAction
 ): VacationsState {
   const newState = { ...currentState };
+  newState.vacations = [ ...currentState.vacations ]
   switch (action.type) {
     case VacationsActionType.FetchVacations:
       newState.vacations = action.payload;
@@ -40,9 +41,10 @@ export function vacationsReducer(
         newState.vacations[indexToUpdate] = action.payload;
       }
       break;
-      // case VacationsActionType.AddFollower:
-      //   newState.vacations = action.payload;
-      //   break;
+       case VacationsActionType.AddFollower:
+        const followedVacation = newState.vacations.find(x => x.vacationId == action.payload.vacationId)
+        if (followedVacation) followedVacation.isFollowing = 1
+        break;
     case VacationsActionType.DeleteVacation:
       const indexToDelete = newState.vacations.findIndex(
         (v) => v.vacationId === action.payload

@@ -196,9 +196,14 @@ function AddVacations(): JSX.Element {
                 )}
               </Box>
 
-  {/* <input type="file" accept="image/*" {...register("image")} required /> */}
+              <input
+                type="file"
+                accept="image/*"
+                {...register("image")}
+                required
+              />
 
-  <Box mt={2} mb={2}>
+              {/* <Box mt={2} mb={2}>
                 <FormLabel>Upload Image</FormLabel>
                 <Input
                   type="file"
@@ -226,8 +231,7 @@ function AddVacations(): JSX.Element {
                     />
                   </Box>
                 )}
-              </Box>
-
+              </Box> */}
 
               <Button variant="contained" type="submit" color="primary">
                 Add Vacation

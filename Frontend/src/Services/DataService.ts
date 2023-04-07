@@ -16,7 +16,22 @@ class DataService {
   }
 
   public async addVacation(vacation: VacationModel): Promise<void> {
-    const response =   await axios.post<VacationModel>(appConfig.vacationsUrl, vacation);
+    var bodyFormData = new FormData();
+    Object.entries(vacation).forEach(([key, value]: [string, any]) => {
+      if (value?.$d) {
+        value = value.$d.toJSON();
+      }
+      bodyFormData.append(key, value);
+    })
+
+    const response = await axios({
+      method: "post",
+      url: appConfig.vacationsUrl,
+      data: bodyFormData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+
+    //const response =   await axios.post<VacationModel>(appConfig.vacationsUrl, vacation);
     const addedVacation = response.data;
     vacationsStore.dispatch({type: VacationsActionType.AddVacation, payload: addedVacation})
   }
@@ -36,7 +51,7 @@ class DataService {
     const response = await axios.post<FollowersModel>(appConfig.followersUrl+ followers.vacationId);
     // const updatedVacation =  followers
     //  console.log(followers)
-    //  vacationsStore.dispatch({type: VacationsActionType.UpdateVacation, payload:updatedVacation})
+    vacationsStore.dispatch({type: VacationsActionType.AddFollower, payload:followers})
   }
 
   public async deleteFollower(vacationId: number): Promise<void> {
