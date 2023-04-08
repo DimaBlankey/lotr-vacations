@@ -5,6 +5,7 @@ import dataService from "../../../Services/DataService";
 import notifyService from "../../../Services/NotifyService";
 import VacationCard from "../VacationCard/VacationCard";
 import { vacationsStore } from "../../../Redux/VacationsState";
+import DeleteVacation from "../DeleteVacation/DeleteVacation";
 
 function VacationsList(): JSX.Element {
   const [vacations, setVacations] = useState<VacationModel[]>([]);

@@ -15,7 +15,7 @@ function Routing(): JSX.Element {
             <Route path="/login" element={<Login />} />
             <Route path="/vacations" element={<VacationsList />} />
             <Route path="/add-vacations" element={<AddVacations/>} />
-            <Route path="/update-vacation/:itemId" element={<UpdateVacations/>} />
+            <Route path="/vacation/update/:vacationId" element={<UpdateVacations/>} />
             <Route path="/" element={<Navigate to="/home" />} />
             <Route path="*" element={<PageNotFound />} />
         </Routes>

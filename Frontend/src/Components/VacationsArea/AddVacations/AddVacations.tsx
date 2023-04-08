@@ -8,6 +8,8 @@ import {
   Box,
   FormLabel,
   Input,
+  Grid,
+  InputBase,
 } from "@mui/material";
 import UserModel from "../../../Models/UserModel";
 import { Controller, useForm } from "react-hook-form";
@@ -20,13 +22,15 @@ import dataService from "../../../Services/DataService";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 function AddVacations(): JSX.Element {
   const {
     register,
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }, 
   } = useForm<VacationModel>();
   const navigate = useNavigate();
 
@@ -49,6 +53,7 @@ function AddVacations(): JSX.Element {
     }
   };
 
+
   return (
     <div className="AddVacations">
       <Box
@@ -64,7 +69,7 @@ function AddVacations(): JSX.Element {
             backgroundColor: "rgba(255, 255, 255, 0.5)",
             backdropFilter: "blur(20px)",
             width: "100%",
-            maxWidth: "360px",
+            maxWidth: "450px",
             mt: 2,
 
             borderColor: "gray.200",
@@ -78,6 +83,8 @@ function AddVacations(): JSX.Element {
               <Box mt={2} mb={2}>
                 <FormLabel>Destination</FormLabel>
                 <TextField
+                  fullWidth
+                  autoFocus
                   placeholder="Destination..."
                   variant="outlined"
                   className="form-inputs"
@@ -102,6 +109,7 @@ function AddVacations(): JSX.Element {
               <Box mt={2} mb={2}>
                 <FormLabel>Description</FormLabel>
                 <TextField
+                  fullWidth
                   placeholder="Description..."
                   variant="outlined"
                   multiline
@@ -124,64 +132,78 @@ function AddVacations(): JSX.Element {
                   </FormHelperText>
                 )}
               </Box>
-              <Box mt={2} mb={2}>
-                <FormLabel>Start Date</FormLabel>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <Controller
-                    name="startDate"
-                    control={control}
-                    defaultValue={null}
-                    rules={{ required: true }}
-                    render={({ field }) => (
-                      <DatePicker
-                        value={field.value}
-                        onChange={(newValue) => field.onChange(newValue)}
-                        // renderInput={(params : any) => <TextField {...params} />}
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <Box mt={2} mb={2}>
+                    <FormLabel>Start Date</FormLabel>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <Controller
+                        name="startDate"
+                        control={control}
+                        defaultValue={null}
+                        rules={{
+                          required: true,
+
+                        }}
+                        render={({ field }) => (
+                          <DatePicker
+                            value={field.value}
+                            onChange={(newValue) => field.onChange(newValue)}
+                            disablePast
+                          />
+                        )}
                       />
+                    </LocalizationProvider>
+                    {errors.startDate &&
+                      errors.startDate.type === "required" && (
+                        <FormHelperText sx={{ fontSize: 12 }} error>
+                          Start date is required
+                        </FormHelperText>
+                      )}
+                  </Box>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Box mt={2} mb={2}>
+                    <FormLabel>End Date</FormLabel>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <Controller
+                        name="endDate"
+                        control={control}
+                        defaultValue={null}
+                        rules={{
+                          required: true,
+                        }}
+                        render={({ field }) => (
+                          <DatePicker
+                            value={field.value}
+                            onChange={(newValue) => field.onChange(newValue)}
+                            disablePast
+                          />
+                        )}
+                      />
+                    </LocalizationProvider>
+                    {errors.endDate && errors.endDate.type === "required" && (
+                      <FormHelperText sx={{ fontSize: 12 }} error>
+                        Start date is required
+                      </FormHelperText>
                     )}
-                  />
-                </LocalizationProvider>
-                {errors.startDate && errors.startDate.type === "required" && (
-                  <FormHelperText sx={{ fontSize: 12 }} error>
-                    Start date is required
-                  </FormHelperText>
-                )}
-              </Box>
+                  </Box>
+                </Grid>
+              </Grid>
 
               <Box mt={2} mb={2}>
-                <FormLabel>End Date</FormLabel>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <Controller
-                    name="endDate"
-                    control={control}
-                    defaultValue={null}
-                    rules={{ required: true }}
-                    render={({ field }) => (
-                      <DatePicker
-                        value={field.value}
-                        onChange={(newValue) => field.onChange(newValue)}
-                        // renderInput={(params : any) => <TextField {...params} />}
-                      />
-                    )}
-                  />
-                </LocalizationProvider>
-                {errors.startDate && errors.startDate.type === "required" && (
-                  <FormHelperText sx={{ fontSize: 12 }} error>
-                    Start date is required
-                  </FormHelperText>
-                )}
-              </Box>
-
-              <Box mt={2} mb={2}>
-                <FormLabel>Vacation Price</FormLabel>
+                <FormLabel>Price</FormLabel>
                 <TextField
-                  placeholder="..."
-                  type="number"
+                  fullWidth
+                  placeholder="$"
+                  type="text"
                   variant="outlined"
                   className="form-inputs"
                   {...register("price", {
                     required: true,
+                    pattern: /^[0-9]+([.][0-9]+)?$/,
                     min: 0,
+                    max: 10000
                   })}
                 />
                 {errors.price && errors.price.type === "required" && (
@@ -189,52 +211,61 @@ function AddVacations(): JSX.Element {
                     Price is required
                   </FormHelperText>
                 )}
+                {errors.price && errors.price.type === "pattern" && (
+                  <FormHelperText sx={{ fontSize: 12 }} error>
+                    Please enter a valid number
+                  </FormHelperText>
+                )}
+
                 {errors.price && errors.price.type === "min" && (
                   <FormHelperText sx={{ fontSize: 12 }} error>
                     Price must be a positive number
                   </FormHelperText>
                 )}
-              </Box>
-
-              <input
-                type="file"
-                accept="image/*"
-                {...register("image")}
-                required
-              />
-
-              {/* <Box mt={2} mb={2}>
-                <FormLabel>Upload Image</FormLabel>
-                <Input
-                  type="file"
-                  onChange={handleImageUpload}
-                
-                  required
-                />
-                {errors.image && (
+                 {errors.price && errors.price.type === "max" && (
                   <FormHelperText sx={{ fontSize: 12 }} error>
-                    {errors.image.type === "required" && "Image is required"}
+                    Price must be up to 10,000
                   </FormHelperText>
                 )}
+              </Box>
+              <Box mt={2} mb={2}>
+                <FormLabel>
+                  {" "}
+                  <CloudUploadIcon /> Upload Image
+                </FormLabel>
+                <input
+                  type="file"
+                  accept="image/*"
+                  {...register("image")}
+                  onChange={handleImageUpload}
+                  required
+                />
                 {image && (
                   <Box
                     mt={2}
                     mb={2}
-                    maxWidth="100%"
+                    maxWidth="90%"
                     maxHeight="300px"
                     overflow="hidden"
                   >
                     <img
                       src={URL.createObjectURL(image)}
                       alt="uploaded-image"
-                      style={{ maxWidth: "100%", maxHeight: "100%" }}
+                      style={{ maxWidth: "90%", maxHeight: "90%" }}
                     />
                   </Box>
                 )}
-              </Box> */}
-
-              <Button variant="contained" type="submit" color="primary">
+              </Box>
+              <Button
+                variant="contained"
+                type="submit"
+                color="primary"
+                sx={{ mt: 3, mb: 2 }}
+              >
                 Add Vacation
+              </Button>
+              <Button variant="contained" type="reset" color="inherit">
+                Cancel
               </Button>
             </FormControl>
           </form>

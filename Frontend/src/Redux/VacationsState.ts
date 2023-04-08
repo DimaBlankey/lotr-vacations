@@ -35,12 +35,13 @@ export function vacationsReducer(
       return new VacationsState();
       break;
     case VacationsActionType.UpdateVacation:
-      const indexToUpdate = newState.vacations.findIndex(
-        (v) => v.vacationId === action.payload.vacationId
-      );
-      if (indexToUpdate >= 0) {
-        newState.vacations[indexToUpdate] = action.payload;
-      }
+      // const indexToUpdate = newState.vacations.findIndex(
+      //   (v) => v.vacationId === action.payload.vacationId
+      // );
+      // if (indexToUpdate >= 0) {
+      //   newState.vacations[indexToUpdate] = action.payload;
+      // }
+      return new VacationsState();
       break;
        case VacationsActionType.AddFollower:
         const followedVacation = newState.vacations.find(x => x.vacationId == action.payload.vacationId)

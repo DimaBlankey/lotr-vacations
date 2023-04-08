@@ -26,12 +26,26 @@ router.get(
   }
 );
 
+router.get(
+  "/vacations/:vacationId([0-9]+)",
+  verifyAdmin,
+  async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const vacationId = +request.params.vacationId;
+      const vacation = await dataService.getOneVacation(vacationId);
+      response.json(vacation);
+    } catch (err: any) {
+      next(err);
+    }
+  }
+);
+
 router.post(
   "/vacations",
   verifyAdmin,
   async (request: Request, response: Response, next: NextFunction) => {
     try {
-      request.body.image = request.files?.image
+      request.body.image = request.files?.image;
       const vacation = new VacationModel(request.body);
       const addedVacation = await dataService.addVacation(vacation);
       response.status(201).json(addedVacation);
@@ -61,7 +75,7 @@ router.put(
   async (request: Request, response: Response, next: NextFunction) => {
     try {
       request.body.vacationId = +request.params.vacationId;
-      request.body.image = request.files?.image
+      request.body.image = request.files?.image;
       const vacation = new VacationModel(request.body);
       const updatedVacation = await dataService.updateVacation(vacation);
       response.json(updatedVacation);
@@ -92,7 +106,7 @@ router.post(
     try {
       const token = request.headers.authorization.split(" ")[1];
       const decodedToken = jwt.verify(token, cyber.secretKey);
-    
+
       request.body.userId = decodedToken.user.userId;
       request.body.vacationId = +request.params.vacationId;
 
@@ -110,15 +124,14 @@ router.delete(
   verifyLoggedIn,
   async (request: Request, response: Response, next: NextFunction) => {
     try {
-
       const token = request.headers.authorization.split(" ")[1];
       const decodedToken = jwt.verify(token, cyber.secretKey);
-    
+
       request.body.userId = decodedToken.user.userId;
       request.body.vacationId = +request.params.vacationId;
 
       const follower = new FollowersModel(request.body);
-      
+
       await dataService.deleteFollower(follower);
       response.sendStatus(204);
     } catch (err: any) {
@@ -126,9 +139,5 @@ router.delete(
     }
   }
 );
-
-
-
-
 
 export default router;

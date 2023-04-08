@@ -9,10 +9,12 @@ import expressFileUpload from "express-fileupload";
 import preventXss from "./3-middleware/prevent-xss";
 import expressRateLimit from "express-rate-limit";
 import helmet from "helmet";
+import http from "http";
+import socketIoService from "./5-services/socket.io-service"
 
-const server = express();
+const expressServer = express();
 
-server.use(
+expressServer.use(
   expressRateLimit({
     windowMs: 1000,
     max: 25,
@@ -21,17 +23,21 @@ server.use(
 
 // server.use(helmet());
 
-server.use(cors({
-  origin: "*"
-}));
-server.use(express.json());
-server.use(preventXss);
-server.use(expressFileUpload());
-server.use("/api", dataRoutes);
-server.use("/api", authRoute);
-server.use(routeNotFound);
-server.use(catchAll);
+expressServer.use(
+  cors({
+    origin: "*",
+  })
+);
+expressServer.use(express.json());
+expressServer.use(preventXss);
+expressServer.use(expressFileUpload());
+expressServer.use("/api", dataRoutes);
+expressServer.use("/api", authRoute);
+expressServer.use(routeNotFound);
+expressServer.use(catchAll);
 
-server.listen(appConfig.port, () =>
+const httpServer = expressServer.listen(appConfig.port, () =>
   console.log("Listening on http://localhost:" + appConfig.port)
 );
+
+socketIoService.init(httpServer)

@@ -13,7 +13,7 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import UserModel from "../../../Models/UserModel";
@@ -26,12 +26,25 @@ import {
   vacationsStore,
 } from "../../../Redux/VacationsState";
 import { Store } from "redux";
+import { Socket, io } from "socket.io-client";
+import notifyService from "../../../Services/NotifyService";
+import { Button, Modal } from "@mui/material";
+import DeleteVacation from "../DeleteVacation/DeleteVacation";
+
+// let socket: Socket;
+
 
 interface VacationCardProps {
   vacation: VacationModel;
 }
 
 function VacationCard(props: VacationCardProps): JSX.Element {
+
+
+  // function connect(): void {
+  //   socket = io("http://localhost:4000");
+  // }
+
   const [user, setUser] = useState<UserModel>();
   const [vacation, setVacation] = useState<VacationModel>(props.vacation);
 
@@ -61,26 +74,6 @@ function VacationCard(props: VacationCardProps): JSX.Element {
     }
   }
 
-  // function handleFollow() {
-  //   if (props.vacation.isFollowing === 0) {
-  //     const updatedVacation = new VacationModel();
-  //     updatedVacation.vacationId = props.vacation.vacationId;
-  //     updatedVacation.destination = props.vacation.destination;
-  //     updatedVacation.description = props.vacation.description;
-  //     updatedVacation.startDate = props.vacation.startDate;
-  //     updatedVacation.endDate = props.vacation.endDate;
-  //     updatedVacation.price = props.vacation.price;
-  //     updatedVacation.image = props.vacation.image as File;
-  //     updatedVacation.imageUrl = props.vacation.imageUrl;
-  //     updatedVacation.followersCount = props.vacation.followersCount;
-  //     updatedVacation.isFollowing = props.vacation.isFollowing;
-  //     dataService.addFollowVacation(updatedVacation);
-  //   } else {
-  //     const vacationId = +props.vacation.vacationId;
-  //     dataService.deleteFollower(vacationId);
-  //   }
-  // }
-
   function formatDate(date: string): string {
     const dateObj = new Date(date);
     const options: Intl.DateTimeFormatOptions = {
@@ -100,6 +93,24 @@ function VacationCard(props: VacationCardProps): JSX.Element {
   function handleClose() {
     setAnchorEl(null);
   }
+  const navigate = useNavigate();
+
+  async function deleteMe() {
+    try {
+        const ok = window.confirm("Are you sure?");
+        if(!ok) return;
+        await dataService.deleteVacation(vacation.vacationId);
+        notifyService.success("Vacations has been deleted");
+        navigate("/vacations");
+    }
+    catch(err: any) {
+        notifyService.error(err);
+    }
+}
+
+
+
+
 
   return (
     <div className="VacationCard">
@@ -117,17 +128,18 @@ function VacationCard(props: VacationCardProps): JSX.Element {
               >
                 <MenuItem
                   component={NavLink}
-                  to={`/update/${vacation.vacationId}`}
+                  to={`/vacation/update/${vacation.vacationId}`}
                   onClick={handleClose}
                 >
-                  Update
+                  UPDATE
                 </MenuItem>
                 <MenuItem
-                  component={NavLink}
-                  to={`/delete/${vacation.vacationId}`}
-                  onClick={handleClose}
+                sx={{ color: "red" }}
+                  // component={NavLink}
+                  // to={`/delete/${vacation.vacationId}`}
+                  onClick={deleteMe}
                 >
-                  Delete
+                  DELETE
                 </MenuItem>
               </Menu>
             </>
@@ -173,6 +185,3 @@ function VacationCard(props: VacationCardProps): JSX.Element {
 }
 
 export default VacationCard;
-function useSelector(vacationsStore: Store<VacationsState, VacationsAction>) {
-  throw new Error("Function not implemented.");
-}

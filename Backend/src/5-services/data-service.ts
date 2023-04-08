@@ -28,6 +28,14 @@ ORDER BY V.startDate;
   return vacations;
 }
 
+async function getOneVacation(vacationId: number): Promise<VacationModel> {
+  const sql = "SELECT * FROM vacations WHERE vacationId = ?";
+  const vacations = await dal.execute(sql, [vacationId]);
+  const vacation = vacations[0];
+  if (!vacation) throw new ResourceNotFoundError(vacationId);
+  return vacation;
+}
+
 async function addVacation(vacation: VacationModel): Promise<VacationModel> {
   vacation.validateVacationPost();
 
@@ -108,7 +116,9 @@ async function getVacationImageName(vacationId: number): Promise<string> {
   return imageName;
 }
 
-async function addFollowVacation(followers: FollowersModel): Promise<FollowersModel> {
+async function addFollowVacation(
+  followers: FollowersModel
+): Promise<FollowersModel> {
   // followers.validateFollowerPost();
 
   const sqlCheck =
@@ -141,6 +151,7 @@ async function deleteFollower(followers: FollowersModel): Promise<void> {
 
 export default {
   getAllVacations,
+  getOneVacation,
   deleteVacation,
   addVacation,
   updateVacation,
