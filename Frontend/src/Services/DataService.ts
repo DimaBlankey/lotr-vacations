@@ -48,15 +48,13 @@ class DataService {
   }
 
   public async addFollowVacation(followers: FollowersModel): Promise<void> {
-    const response = await axios.post<FollowersModel>(appConfig.followersUrl+ followers.vacationId);
-    // const updatedVacation =  followers
-    //  console.log(followers)
+    await axios.post<FollowersModel>(appConfig.followersUrl+ followers.vacationId);
     vacationsStore.dispatch({type: VacationsActionType.AddFollower, payload:followers})
   }
 
-  public async deleteFollower(vacationId: number): Promise<void> {
-    await axios.delete(appConfig.followersUrl + vacationId);
-    // vacationsStore.dispatch({type: VacationsActionType.UpdateVacation, payload:vacationId})
+  public async deleteFollower(followers: FollowersModel): Promise<void> {
+    await axios.delete(appConfig.followersUrl + followers.vacationId);
+    vacationsStore.dispatch({type: VacationsActionType.DeleteFollower, payload:followers})
   }
 }
 

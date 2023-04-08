@@ -10,7 +10,9 @@ function VacationsList(): JSX.Element {
   const [vacations, setVacations] = useState<VacationModel[]>([]);
 
   useEffect(() => {
-    dataService.getAllVacations().catch((err) => notifyService.error(err));
+    dataService.getAllVacations()
+    .then((responseVacations)=> setVacations(responseVacations))
+    .catch((err) => notifyService.error(err));
 
     const unsubscribe = vacationsStore.subscribe(() => {
       const vacations = vacationsStore.getState().vacations;

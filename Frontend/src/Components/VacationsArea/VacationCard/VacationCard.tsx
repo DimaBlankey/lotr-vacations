@@ -54,8 +54,10 @@ function VacationCard(props: VacationCardProps): JSX.Element {
       follower.vacationId = +props.vacation.vacationId;
       dataService.addFollowVacation(follower);
     } else {
-      const vacationId = +props.vacation.vacationId;
-      dataService.deleteFollower(vacationId);
+      const follower = new FollowersModel();
+      follower.userId = user.userId;
+      follower.vacationId = +props.vacation.vacationId;
+      dataService.deleteFollower(follower);
     }
   }
 
