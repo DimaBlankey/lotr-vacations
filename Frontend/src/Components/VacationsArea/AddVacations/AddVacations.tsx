@@ -22,7 +22,6 @@ import dataService from "../../../Services/DataService";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 function AddVacations(): JSX.Element {
@@ -31,7 +30,7 @@ function AddVacations(): JSX.Element {
     register,
     control,
     handleSubmit,
-    formState: { errors }, 
+    formState: { errors },
   } = useForm<VacationModel>();
   const navigate = useNavigate();
 
@@ -281,7 +280,4 @@ function AddVacations(): JSX.Element {
 }
 
 export default AddVacations;
-function jwt_decode(token: string) {
-  throw new Error("Function not implemented.");
-}
 

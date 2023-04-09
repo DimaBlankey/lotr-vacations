@@ -1,3 +1,25 @@
+/* Center the container */
 .Home {
-	
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  /* Style the big button */
+  .Home .big-button {
+    font-size: 1.5rem;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    background-color: #0077cc;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+/* Style the heading */
+.Home h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
 }

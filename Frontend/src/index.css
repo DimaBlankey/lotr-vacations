@@ -17,7 +17,8 @@ body,
 }
 
 a {
-  /* color: blue; */
+  text-decoration: none;
+  color: inherit;
 }
 
 .notyf__notification--success {
@@ -58,3 +59,4 @@ a {
     background-color: gray;
   }
 /* } */
+

@@ -63,13 +63,20 @@ function VacationsList(): JSX.Element {
     return vacations.slice(startIndex, endIndex);
   };
 
+    //=================== Filters =====================
+
+   
   return (
     <div className="VacationsList">
+      <h1>Vacations</h1>
+      <div className="VacationsList-cards">
       {getPageVacations().map((v) => (
         <div key={v.vacationId} className="vacation-card">
           <VacationCard vacation={v} />
         </div>
       ))}
+    </div>
+      <div className="pagination">
       {totalPages > 1 && (
         <div className="pagination">
           <Pagination
@@ -81,7 +88,7 @@ function VacationsList(): JSX.Element {
           />
         </div>
       )}
-
+</div>
       {/* {getPageVacations().map((v) => (
         <div key={v.vacationId} className="vacation-card">
           <VacationCard vacation={v} />

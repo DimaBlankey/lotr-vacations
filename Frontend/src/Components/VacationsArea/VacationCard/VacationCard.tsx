@@ -122,7 +122,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
 
   return (
     <div className="VacationCard">
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 360}}>
         <CardHeader
           action={
             <>
@@ -169,7 +169,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
         />
         <CardMedia component="img" height="194" image={vacation.imageUrl} />
         <CardContent
-          sx={{ maxHeight: 100, overflow: "auto" }}
+          sx={{ maxHeight: 100, minHeight: 100 ,overflow: "auto" }}
           className="scrollbar"
         >
           <Typography variant="body2" color="text.secondary">
