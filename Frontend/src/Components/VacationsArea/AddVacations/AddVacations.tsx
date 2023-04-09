@@ -26,6 +26,7 @@ import dayjs from "dayjs";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 function AddVacations(): JSX.Element {
+
   const {
     register,
     control,
@@ -52,6 +53,10 @@ function AddVacations(): JSX.Element {
       setImage(event.target.files[0]);
     }
   };
+
+  function navigateBack(){
+    navigate("/vacations");
+  }
 
 
   return (
@@ -264,7 +269,7 @@ function AddVacations(): JSX.Element {
               >
                 Add Vacation
               </Button>
-              <Button variant="contained" type="reset" color="inherit">
+              <Button variant="contained" type="reset" color="inherit" onClick={navigateBack}>
                 Cancel
               </Button>
             </FormControl>
@@ -276,3 +281,7 @@ function AddVacations(): JSX.Element {
 }
 
 export default AddVacations;
+function jwt_decode(token: string) {
+  throw new Error("Function not implemented.");
+}
+

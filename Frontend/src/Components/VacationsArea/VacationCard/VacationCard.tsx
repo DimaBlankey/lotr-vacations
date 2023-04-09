@@ -29,7 +29,7 @@ import { Store } from "redux";
 import { Socket, io } from "socket.io-client";
 import notifyService from "../../../Services/NotifyService";
 import { Button, Modal } from "@mui/material";
-import DeleteVacation from "../DeleteVacation/DeleteVacation";
+import Dialog from '@mui/material/Dialog';
 
 // let socket: Socket;
 
@@ -95,6 +95,14 @@ function VacationCard(props: VacationCardProps): JSX.Element {
   }
   const navigate = useNavigate();
 
+
+
+
+
+
+
+
+
   async function deleteMe() {
     try {
         const ok = window.confirm("Are you sure?");
@@ -141,6 +149,14 @@ function VacationCard(props: VacationCardProps): JSX.Element {
                 >
                   DELETE
                 </MenuItem>
+                {/* {showDialog && (
+        <DeleteVacation.Dialog
+          title="Confirm Delete"
+          message="Are you sure you want to delete?"
+          onClose={handleDialogClose}
+          onOk={handleDialogOk}
+        />
+      )} */}
               </Menu>
             </>
           }

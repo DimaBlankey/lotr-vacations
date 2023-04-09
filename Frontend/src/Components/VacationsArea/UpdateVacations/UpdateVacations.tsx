@@ -86,6 +86,10 @@ function UpdateVacations(): JSX.Element {
     }
   };
 
+  function navigateBack(){
+    navigate("/vacations");
+  }
+
   return (
     <div className="UpdateVacations">
       <Box
@@ -308,7 +312,7 @@ function UpdateVacations(): JSX.Element {
               >
                 Update Vacation
               </Button>
-              <Button variant="contained" type="reset" color="inherit">
+              <Button variant="contained" type="reset" color="inherit" onClick={navigateBack}>
                 Cancel
               </Button>
             </FormControl>
