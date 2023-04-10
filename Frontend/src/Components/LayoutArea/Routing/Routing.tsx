@@ -6,20 +6,64 @@ import UpdateVacations from "../../VacationsArea/UpdateVacations/UpdateVacations
 import VacationsList from "../../VacationsArea/VacationsList/VacationsList";
 import SignUp from "../../AuthArea/SignUp/SignUp";
 import Login from "../../AuthArea/Login/Login";
+import { authStore } from "../../../Redux/AuthState";
+import { useEffect, useState } from "react";
+import UserModel from "../../../Models/UserModel";
 
 function Routing(): JSX.Element {
-    return (
-        <Routes>
-            <Route path="/home" element={<Home />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/vacations" element={<VacationsList />} />
-            <Route path="/add-vacations" element={<AddVacations/>} />
-            <Route path="/vacation/update/:vacationId" element={<UpdateVacations/>} />
-            <Route path="/" element={<Navigate to="/home" />} />
-            <Route path="*" element={<PageNotFound />} />
-        </Routes>
-    );
+  const [user, setUser] = useState<UserModel>();
+  useEffect(() => {
+    setUser(authStore.getState().user);
+    const unsubscribe = authStore.subscribe(() => {
+      setUser(authStore.getState().user);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  return (
+    <Routes>
+      <Route path="/home" element={<Home />} />
+      <Route path="/sign-up" element={<SignUp />} />
+      <Route path="/login" element={<Login />} />
+      {user ? (
+        <>
+          <Route path="/vacations" element={<VacationsList />} />
+          <Route path="/add-vacations" element={<AddVacations />} />
+          <Route
+            path="/vacation/update/:vacationId"
+            element={<UpdateVacations />}
+          />
+        </>
+      ) : (
+        <>
+          <Route path="/vacations" element={<Navigate to="/login" />} />
+          <Route path="/add-vacations" element={<Navigate to="/login" />} />
+          <Route
+            path="/vacation/update/:vacationId"
+            element={<Navigate to="/login" />}
+          />
+        </>
+      )}
+      <Route path="/" element={<Navigate to="/home" />} />
+      <Route path="*" element={<PageNotFound />} />
+    </Routes>
+  );
 }
 
 export default Routing;
+
+//     return (
+//         <Routes>
+//             <Route path="/home" element={<Home />} />
+//             <Route path="/sign-up" element={<SignUp />} />
+//             <Route path="/login" element={<Login />} />
+//             <Route path="/vacations" element={<VacationsList />} />
+//             <Route path="/add-vacations" element={<AddVacations/>} />
+//             <Route path="/vacation/update/:vacationId" element={<UpdateVacations/>} />
+//             <Route path="/" element={<Navigate to="/home" />} />
+//             <Route path="*" element={<PageNotFound />} />
+//         </Routes>
+//     );
+// }
+
+// export default Routing;
