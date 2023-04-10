@@ -9,6 +9,7 @@ import Login from "../../AuthArea/Login/Login";
 import { authStore } from "../../../Redux/AuthState";
 import { useEffect, useState } from "react";
 import UserModel from "../../../Models/UserModel";
+import ReportVacations from "../../VacationsArea/ReportVacations/ReportVacations";
 
 function Routing(): JSX.Element {
   const [user, setUser] = useState<UserModel>();
@@ -35,6 +36,7 @@ function Routing(): JSX.Element {
             path="/vacation/update/:vacationId"
             element={<UpdateVacations />}
           />
+          <Route path="/reports" element={<ReportVacations />} />
         </>
       )}
       {role == "user" && (
@@ -51,6 +53,7 @@ function Routing(): JSX.Element {
             path="/vacation/update/:vacationId"
             element={<Navigate to="/login" />}
           />
+          <Route path="/reports" element={<Navigate to="/login" />} />
         </>
       }
       <Route path="/" element={<Navigate to="/home" />} />
