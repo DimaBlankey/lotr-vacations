@@ -12,6 +12,8 @@ import UserModel from "../../../Models/UserModel";
 
 function Routing(): JSX.Element {
   const [user, setUser] = useState<UserModel>();
+  const role = authStore.getState().user?.role;
+
   useEffect(() => {
     setUser(authStore.getState().user);
     const unsubscribe = authStore.subscribe(() => {
@@ -25,7 +27,7 @@ function Routing(): JSX.Element {
       <Route path="/home" element={<Home />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/login" element={<Login />} />
-      {user ? (
+      {role == "admin" && (
         <>
           <Route path="/vacations" element={<VacationsList />} />
           <Route path="/add-vacations" element={<AddVacations />} />
@@ -34,7 +36,14 @@ function Routing(): JSX.Element {
             element={<UpdateVacations />}
           />
         </>
-      ) : (
+      )}
+      {role == "user" && (
+        <>
+          <Route path="/vacations" element={<VacationsList />} />
+        </>
+      )}
+
+      {
         <>
           <Route path="/vacations" element={<Navigate to="/login" />} />
           <Route path="/add-vacations" element={<Navigate to="/login" />} />
@@ -43,7 +52,7 @@ function Routing(): JSX.Element {
             element={<Navigate to="/login" />}
           />
         </>
-      )}
+      }
       <Route path="/" element={<Navigate to="/home" />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
@@ -52,18 +61,3 @@ function Routing(): JSX.Element {
 
 export default Routing;
 
-//     return (
-//         <Routes>
-//             <Route path="/home" element={<Home />} />
-//             <Route path="/sign-up" element={<SignUp />} />
-//             <Route path="/login" element={<Login />} />
-//             <Route path="/vacations" element={<VacationsList />} />
-//             <Route path="/add-vacations" element={<AddVacations/>} />
-//             <Route path="/vacation/update/:vacationId" element={<UpdateVacations/>} />
-//             <Route path="/" element={<Navigate to="/home" />} />
-//             <Route path="*" element={<PageNotFound />} />
-//         </Routes>
-//     );
-// }
-
-// export default Routing;

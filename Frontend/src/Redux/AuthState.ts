@@ -5,6 +5,7 @@ import { createStore } from "redux";
 export class AuthState {
   public token: string = null;
   public user: UserModel = null;
+  public role: UserModel = null;
 
   public constructor() {
     this.token = localStorage.getItem("token");
