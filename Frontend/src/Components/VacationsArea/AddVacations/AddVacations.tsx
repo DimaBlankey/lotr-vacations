@@ -12,7 +12,7 @@ import {
   InputBase,
 } from "@mui/material";
 import UserModel from "../../../Models/UserModel";
-import { Controller, useForm } from "react-hook-form";
+import { Control, Controller, useForm } from "react-hook-form";
 import { useState } from "react";
 import authService from "../../../Services/AuthService";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -56,6 +56,8 @@ function AddVacations(): JSX.Element {
   function navigateBack(){
     navigate("/vacations");
   }
+
+
 
 
   return (
