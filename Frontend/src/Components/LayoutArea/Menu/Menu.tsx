@@ -1,16 +1,18 @@
 import { NavLink } from "react-router-dom";
+import HomeIcon from '@mui/icons-material/Home';
 import "./Menu.css";
 
 function Menu(): JSX.Element {
     return (
         <div className="Menu">
-			<NavLink to="/home">Home</NavLink>
+            <NavLink  to="/home"><HomeIcon /></NavLink>
+			<NavLink  to="/home" className={"HomeLink"}>Home</NavLink>
             <span> | </span>
 			<NavLink to="/vacations">Vacations</NavLink>
-            <span> | </span>
+            {/* <span> | </span>
 			<NavLink to="/add-vacations">Add Vacations</NavLink>
             <span> | </span>
-			<NavLink to="/reports">Reports</NavLink>
+			<NavLink to="/reports">Reports</NavLink> */}
            
         </div>
     );

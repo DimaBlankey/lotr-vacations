@@ -3,6 +3,9 @@ import "./Home.css";
 import { useEffect, useState } from "react";
 import UserModel from "../../../Models/UserModel";
 import { authStore } from "../../../Redux/AuthState";
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import QuiltedImageList from "./ImageList";
 
 function Home(): JSX.Element {
 
@@ -34,8 +37,12 @@ function Home(): JSX.Element {
       </NavLink>
       </>
         )}
+        <div>
+        <QuiltedImageList />
+        </div>
     </div>
   );
 }
 
 export default Home;
+

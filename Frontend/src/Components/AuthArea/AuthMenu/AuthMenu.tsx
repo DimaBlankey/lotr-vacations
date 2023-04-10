@@ -6,6 +6,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import authService from "../../../Services/AuthService";
 import notifyService from "../../../Services/NotifyService";
 import { VacationsActionType, vacationsStore } from "../../../Redux/VacationsState";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function AuthMenu(): JSX.Element {
   const [user, setUser] = useState<UserModel>();
@@ -33,7 +35,7 @@ function AuthMenu(): JSX.Element {
     <div className="AuthMenu">
       {!user && (
         <div>
-          <span>Hello Guest | </span>
+          <span><AccountCircleIcon className="AccountCircleIcon"/> </span>
           <NavLink to="/login">Login</NavLink>
           <span> | </span>
           <NavLink to="/sign-up">Sign up</NavLink>
@@ -41,10 +43,11 @@ function AuthMenu(): JSX.Element {
       )}
       {user && (
         <div>
-          <span>
-            Hello {user.firstName} {user.lastName} |{" "}
+          <span><AccountCircleIcon />
+            Hello, {user.firstName} {user.lastName} |{" "}
           </span>
-          <NavLink to="/home" onClick={logout}>Logout</NavLink>
+          <NavLink to="/home" onClick={logout}className="LogoutLink">Logout</NavLink>
+          <NavLink to="/home" onClick={logout}><LogoutIcon /></NavLink>
         </div>
       )}
     </div>
