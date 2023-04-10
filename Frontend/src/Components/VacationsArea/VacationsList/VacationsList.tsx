@@ -12,29 +12,32 @@ import Home from "../../HomeArea/Home/Home";
 import Login from "../../AuthArea/Login/Login";
 import { Router } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-import { Box, Checkbox, Fab, FormControlLabel, FormGroup, Pagination } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
-import BarChartIcon from '@mui/icons-material/BarChart';
-
+import {
+  Box,
+  Checkbox,
+  Fab,
+  FormControlLabel,
+  FormGroup,
+  Pagination,
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import BarChartIcon from "@mui/icons-material/BarChart";
 
 function VacationsList(): JSX.Element {
-
-
   const [vacations, setVacations] = useState<VacationModel[]>([]);
-  // const [user, setUser] = useState<UserModel>();
+  const [user, setUser] = useState<UserModel>();
+  const role = authStore.getState().user?.role;
+
   const navigate = useNavigate();
 
-
-
-
-  // useEffect(() => {
-  //   setUser(authStore.getState().user);
-  //   console.log();
-  //   const unsubscribe = authStore.subscribe(() => {
-  //     setUser(authStore.getState().user);
-  //   });
-  //   return () => unsubscribe();
-  // }, []);
+  useEffect(() => {
+    setUser(authStore.getState().user);
+    console.log();
+    const unsubscribe = authStore.subscribe(() => {
+      setUser(authStore.getState().user);
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     dataService
@@ -53,15 +56,13 @@ function VacationsList(): JSX.Element {
     return () => unsubscribe();
   }, []);
 
-function handelClickAddIcon(){
-  navigate("/add-vacations");
-}
+  function handelClickAddIcon() {
+    navigate("/add-vacations");
+  }
 
-function handelClickReports(){
-  navigate("/reports");
-}
-
-
+  function handelClickReports() {
+    navigate("/reports");
+  }
 
   //=================== Pagination =====================
   const PAGE_SIZE = 9;
@@ -81,69 +82,49 @@ function handelClickReports(){
     return vacations.slice(startIndex, endIndex);
   };
 
-    //=================== Filters =====================
+  //=================== Filters =====================
 
-   
   return (
     <div className="VacationsList">
-
-      {/* {!user && <Navigate to="/home" />} */}
-      
-      
       <h1>Vacations</h1>
-      <Box sx={{ '& > :not(style)': { m: 1 } }}>
-      <Fab color="primary" aria-label="add" onClick={handelClickAddIcon}>
-        <AddIcon/>
-      </Fab>
-      <Fab color="primary" aria-label="add" onClick={handelClickReports}>
-        <BarChartIcon />
-      </Fab>
-    </Box>
-    <Box>
-      <FormControlLabel control={<Checkbox  />} label="My Followed Vacations" />
-      <FormControlLabel  control={<Checkbox />} label="Future Vacations" />
-      <FormControlLabel  control={<Checkbox />} label="Active Vacations Now" />
-    </Box>
-      <div className="VacationsList-cards">
-      {getPageVacations().map((v) => (
-        <div key={v.vacationId} className="vacation-card">
-          <VacationCard vacation={v} />
-        </div>
-      ))}
-    </div>
-      <div className="pagination">
-      {totalPages > 1 && (
-        <div className="pagination">
-          <Pagination
-            count={totalPages}
-            page={currentPage}
-            onChange={handlePageChange}
-            variant="outlined"
-            color="primary"
-          />
-        </div>
+      {role == "admin" && (
+        <Box sx={{ "& > :not(style)": { m: 1 } }}>
+          <Fab color="primary" aria-label="add" onClick={handelClickAddIcon}>
+            <AddIcon />
+          </Fab>
+          <Fab color="primary" aria-label="add" onClick={handelClickReports}>
+            <BarChartIcon />
+          </Fab>
+        </Box>
       )}
-</div>
-
-      {/* {getPageVacations().map((v) => (
-        <div key={v.vacationId} className="vacation-card">
-          <VacationCard vacation={v} />
-        </div>
-      ))}
-           {totalPages > 1 && (
-        <div className="pagination">
-          {[...Array(totalPages)].map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handlePageChange(index + 1)}
-              className={currentPage === index + 1 ? "active" : ""}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
-      )} */}
-     
+      <Box>
+        <FormControlLabel
+          control={<Checkbox />}
+          label="My Followed Vacations"
+        />
+        <FormControlLabel control={<Checkbox />} label="Future Vacations" />
+        <FormControlLabel control={<Checkbox />} label="Active Vacations Now" />
+      </Box>
+      <div className="VacationsList-cards">
+        {getPageVacations().map((v) => (
+          <div key={v.vacationId} className="vacation-card">
+            <VacationCard vacation={v} />
+          </div>
+        ))}
+      </div>
+      <div className="pagination">
+        {totalPages > 1 && (
+          <div className="pagination">
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={handlePageChange}
+              variant="outlined"
+              color="primary"
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

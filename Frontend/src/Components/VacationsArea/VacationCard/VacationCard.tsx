@@ -29,24 +29,22 @@ import { Store } from "redux";
 import { Socket, io } from "socket.io-client";
 import notifyService from "../../../Services/NotifyService";
 import { Button, Modal } from "@mui/material";
-import Dialog from '@mui/material/Dialog';
+import Dialog from "@mui/material/Dialog";
 
 // let socket: Socket;
-
 
 interface VacationCardProps {
   vacation: VacationModel;
 }
 
 function VacationCard(props: VacationCardProps): JSX.Element {
-
-
   // function connect(): void {
   //   socket = io("http://localhost:4000");
   // }
 
   const [user, setUser] = useState<UserModel>();
   const [vacation, setVacation] = useState<VacationModel>(props.vacation);
+  const role = authStore.getState().user?.role;
 
   useEffect(() => {
     setUser(authStore.getState().user);
@@ -95,40 +93,29 @@ function VacationCard(props: VacationCardProps): JSX.Element {
   }
   const navigate = useNavigate();
 
-
-
-
-
-
-
-
-
   async function deleteMe() {
     try {
-        const ok = window.confirm("Are you sure?");
-        if(!ok) return;
-        await dataService.deleteVacation(vacation.vacationId);
-        notifyService.success("Vacations has been deleted");
-        navigate("/vacations");
+      const ok = window.confirm("Are you sure?");
+      if (!ok) return;
+      await dataService.deleteVacation(vacation.vacationId);
+      notifyService.success("Vacations has been deleted");
+      navigate("/vacations");
+    } catch (err: any) {
+      notifyService.error(err);
     }
-    catch(err: any) {
-        notifyService.error(err);
-    }
-}
-
-
-
-
+  }
 
   return (
     <div className="VacationCard">
-      <Card sx={{ maxWidth: 360}}>
+      <Card sx={{ maxWidth: 360 }}>
         <CardHeader
           action={
             <>
-              <IconButton aria-label="settings" onClick={handleClick}>
-                <MoreVertIcon />
-              </IconButton>
+              {role == "admin" && (
+                <IconButton aria-label="settings" onClick={handleClick}>
+                  <MoreVertIcon />
+                </IconButton>
+              )}
               <Menu
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
@@ -142,7 +129,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
                   UPDATE
                 </MenuItem>
                 <MenuItem
-                sx={{ color: "red" }}
+                  sx={{ color: "red" }}
                   // component={NavLink}
                   // to={`/delete/${vacation.vacationId}`}
                   onClick={deleteMe}
@@ -169,7 +156,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
         />
         <CardMedia component="img" height="194" image={vacation.imageUrl} />
         <CardContent
-          sx={{ maxHeight: 100, minHeight: 100 ,overflow: "auto" }}
+          sx={{ maxHeight: 100, minHeight: 100, overflow: "auto" }}
           className="scrollbar"
         >
           <Typography variant="body2" color="text.secondary">
@@ -177,16 +164,34 @@ function VacationCard(props: VacationCardProps): JSX.Element {
           </Typography>
         </CardContent>
         <CardActions disableSpacing sx={{ position: "relative" }}>
-          <IconButton aria-label="add to follow" onClick={handleFollow}>
-            {vacation.isFollowing === 1 ? (
-              <FavoriteIcon style={{ color: "red" }} />
-            ) : (
-              <FavoriteIcon />
-            )}
-            <Typography variant="body2" color="text.secondary">
-              {vacation.followersCount}
-            </Typography>
-          </IconButton>
+          {role == "admin" && (
+            <IconButton
+              disabled
+              aria-label="add to follow"
+              onClick={handleFollow}
+            >
+              {vacation.isFollowing === 1 ? (
+                <FavoriteIcon style={{ color: "red" }} />
+              ) : (
+                <FavoriteIcon />
+              )}
+              <Typography variant="body2" color="text.secondary">
+                {vacation.followersCount}
+              </Typography>
+            </IconButton>
+          )}
+          {role !== "admin" && (
+            <IconButton aria-label="add to follow" onClick={handleFollow}>
+              {vacation.isFollowing === 1 ? (
+                <FavoriteIcon style={{ color: "red" }} />
+              ) : (
+                <FavoriteIcon />
+              )}
+              <Typography variant="body2" color="text.secondary">
+                {vacation.followersCount}
+              </Typography>
+            </IconButton>
+          )}
           <Typography
             variant="body2"
             color="text.primary"
