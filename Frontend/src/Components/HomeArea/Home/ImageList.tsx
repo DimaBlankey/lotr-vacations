@@ -1,6 +1,15 @@
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import Image1 from "../../../Assets/images/02f70c25-c557-44db-88e2-ecc2634bbad0.webp"
+import Image2 from "../../../Assets/images/154bdc39-89d7-4adb-b7bd-7982dc340600.jpg"
+import Image3 from "../../../Assets/images/19b7a038-c056-496b-a8e1-f41ebfe51000.jpg"
+import Image4 from "../../../Assets/images/8877289c-ade4-401a-ba74-13afe756df1f.jpg"
+import Image5 from "../../../Assets/images/a3f01383-03e5-4613-b4a3-dd8276fbfaab.jpg"
+import Image6 from "../../../Assets/images/f586f169-2d7f-47ed-aeae-863029d48ca5.webp"
+import Image7 from "../../../Assets/images/9d5a5d0f-e259-4c7e-ad45-e361113a982e.png"
+import Image8 from "../../../Assets/images/92d0440e-91cf-467c-a653-0242b6de0057.png"
+
 
 function srcset(image: string, size: number, rows = 1, cols = 1) {
   return {
@@ -14,7 +23,7 @@ function srcset(image: string, size: number, rows = 1, cols = 1) {
 export default function QuiltedImageList() {
   return (
     <ImageList
-      sx={{ width: 600, height: 500 }}
+      
       variant="quilted"
       cols={4}
       rowHeight={121}
@@ -34,42 +43,42 @@ export default function QuiltedImageList() {
 
 const itemData = [
   {
-    img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
+    img: Image1,
     title: 'Breakfast',
     rows: 2,
     cols: 2,
   },
   {
-    img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
+    img: Image8,
     title: 'Burger',
   },
   {
-    img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
+    img: Image3,
     title: 'Camera',
   },
   {
-    img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
+    img: Image4,
     title: 'Coffee',
     cols: 2,
   },
   {
-    img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
+    img: Image5,
     title: 'Hats',
     cols: 2,
   },
   {
-    img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
+    img: Image6,
     title: 'Honey',
     author: '@arwinneil',
     rows: 2,
     cols: 2,
   },
   {
-    img: 'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6',
+    img: Image7,
     title: 'Basketball',
   },
   {
-    img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
+    img: Image2,
     title: 'Fern',
   },
 

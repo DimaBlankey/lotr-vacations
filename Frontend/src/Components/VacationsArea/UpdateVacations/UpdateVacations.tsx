@@ -59,7 +59,7 @@ function UpdateVacations(): JSX.Element {
         const formattedDate = `${year}-${month
           .toString()
           .padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
-        console.log(responseVacation.startDate);
+        // console.log(responseVacation.startDate);
         // setValue("startDate", formattedDate);
         setValue("price", responseVacation.price);
         // setValue("image", responseVacation.image);
