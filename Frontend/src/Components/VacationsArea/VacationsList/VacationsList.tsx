@@ -106,11 +106,42 @@ function VacationsList(): JSX.Element {
         <FormControlLabel control={<Checkbox />} label="Active Vacations Now" />
       </Box>
       <div className="VacationsList-cards">
+        {/* Regular */}
         {getPageVacations().map((v) => (
           <div key={v.vacationId} className="vacation-card">
             <VacationCard vacation={v} />
           </div>
         ))}
+
+        {/* My Followed Vacations */}
+        {/* {vacations
+          .filter((v) => v.isFollowing === 1)
+          .map((v) => (
+            <div key={v.vacationId} className="vacation-card">
+              <VacationCard vacation={v} />
+            </div>
+          ))} */}
+        {/* Future Vacations */}
+        {/* {vacations
+          .filter((v) => new Date(v.startDate) < new Date())
+          .map((v) => (
+            <div key={v.vacationId} className="vacation-card">
+              <VacationCard vacation={v} />
+            </div>
+          ))} */}
+        {/* Active Vacations Now */}
+        {/* {vacations
+          .filter((v) => {
+            const now = new Date();
+            const startDate = new Date(v.startDate);
+            const endDate = new Date(v.endDate);
+            return startDate <= now && endDate > now;
+          })
+          .map((v) => (
+            <div key={v.vacationId} className="vacation-card">
+              <VacationCard vacation={v} />
+            </div>
+          ))} */}
       </div>
       <div className="pagination">
         {totalPages > 1 && (
