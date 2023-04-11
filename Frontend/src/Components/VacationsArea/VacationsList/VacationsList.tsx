@@ -5,13 +5,9 @@ import dataService from "../../../Services/DataService";
 import notifyService from "../../../Services/NotifyService";
 import VacationCard from "../VacationCard/VacationCard";
 import { vacationsStore } from "../../../Redux/VacationsState";
-import { NavLink, Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import UserModel from "../../../Models/UserModel";
 import { authStore } from "../../../Redux/AuthState";
-import Home from "../../HomeArea/Home/Home";
-import Login from "../../AuthArea/Login/Login";
-import { Router } from "react-router-dom";
-import { Navigate } from "react-router-dom";
 import {
   Box,
   Checkbox,
@@ -32,7 +28,6 @@ function VacationsList(): JSX.Element {
 
   useEffect(() => {
     setUser(authStore.getState().user);
-    console.log();
     const unsubscribe = authStore.subscribe(() => {
       setUser(authStore.getState().user);
     });
@@ -76,13 +71,41 @@ function VacationsList(): JSX.Element {
     setCurrentPage(pageNumber);
   };
 
-  const getPageVacations = () => {
-    const startIndex = (currentPage - 1) * PAGE_SIZE;
-    const endIndex = startIndex + PAGE_SIZE;
-    return vacations.slice(startIndex, endIndex);
+  //=================== Filters =====================
+  const [filters, setFilters] = useState({
+    followed: false,
+    future: false,
+    active: false,
+  });
+
+  const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilters({ ...filters, [event.target.name]: event.target.checked });
   };
 
-  //=================== Filters =====================
+  const getFilteredVacations = () => {
+    return vacations
+      .filter((v) => !filters.followed || v.isFollowing === 1)
+      .filter((v) => !filters.future || new Date(v.startDate) > new Date())
+      .filter((v) => {
+        if (!filters.active) return true;
+        const now = new Date();
+        const startDate = new Date(v.startDate);
+        const endDate = new Date(v.endDate);
+        return startDate <= now && endDate > now;
+      });
+  };
+
+  useEffect(() => {
+    const filteredVacations = getFilteredVacations();
+    setTotalPages(Math.ceil(filteredVacations.length / PAGE_SIZE));
+  }, [vacations, filters]);
+
+  const getPageVacations = () => {
+    const filteredVacations = getFilteredVacations();
+    const startIndex = (currentPage - 1) * PAGE_SIZE;
+    const endIndex = startIndex + PAGE_SIZE;
+    return filteredVacations.slice(startIndex, endIndex);
+  };
 
   return (
     <div className="VacationsList">
@@ -99,49 +122,42 @@ function VacationsList(): JSX.Element {
       )}
       <Box>
         <FormControlLabel
-          control={<Checkbox />}
+          control={
+            <Checkbox
+              name="followed"
+              checked={filters.followed}
+              onChange={handleFilterChange}
+            />
+          }
           label="My Followed Vacations"
         />
-        <FormControlLabel control={<Checkbox />} label="Future Vacations" />
-        <FormControlLabel control={<Checkbox />} label="Active Vacations Now" />
+        <FormControlLabel
+          control={
+            <Checkbox
+              name="future"
+              checked={filters.future}
+              onChange={handleFilterChange}
+            />
+          }
+          label="Future Vacations"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              name="active"
+              checked={filters.active}
+              onChange={handleFilterChange}
+            />
+          }
+          label="Active Vacations Now"
+        />
       </Box>
       <div className="VacationsList-cards">
-        {/* Regular */}
         {getPageVacations().map((v) => (
           <div key={v.vacationId} className="vacation-card">
             <VacationCard vacation={v} />
           </div>
         ))}
-
-        {/* My Followed Vacations */}
-        {/* {vacations
-          .filter((v) => v.isFollowing === 1)
-          .map((v) => (
-            <div key={v.vacationId} className="vacation-card">
-              <VacationCard vacation={v} />
-            </div>
-          ))} */}
-        {/* Future Vacations */}
-        {/* {vacations
-          .filter((v) => new Date(v.startDate) < new Date())
-          .map((v) => (
-            <div key={v.vacationId} className="vacation-card">
-              <VacationCard vacation={v} />
-            </div>
-          ))} */}
-        {/* Active Vacations Now */}
-        {/* {vacations
-          .filter((v) => {
-            const now = new Date();
-            const startDate = new Date(v.startDate);
-            const endDate = new Date(v.endDate);
-            return startDate <= now && endDate > now;
-          })
-          .map((v) => (
-            <div key={v.vacationId} className="vacation-card">
-              <VacationCard vacation={v} />
-            </div>
-          ))} */}
       </div>
       <div className="pagination">
         {totalPages > 1 && (
