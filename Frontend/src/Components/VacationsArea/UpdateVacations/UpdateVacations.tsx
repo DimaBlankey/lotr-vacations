@@ -22,6 +22,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import dayjs from "dayjs";
+
 
 function UpdateVacations(): JSX.Element {
   const params = useParams();
@@ -32,9 +34,11 @@ function UpdateVacations(): JSX.Element {
     handleSubmit,
     formState: { errors },
     setValue,
+    watch,
   } = useForm<VacationModel>();
 
   const navigate = useNavigate();
+  const startDateValue = watch("startDate");
 
   const [vacation, setVacation] = useState<VacationModel>();
 
@@ -207,6 +211,9 @@ function UpdateVacations(): JSX.Element {
                         defaultValue={null}
                         rules={{
                           required: true,
+                          validate: (value) =>
+                            !dayjs(value).isBefore(dayjs(startDateValue)) ||
+                            "End date must be after start date",
                         }}
                         render={({ field }) => (
                           <DatePicker
@@ -219,6 +226,11 @@ function UpdateVacations(): JSX.Element {
                     {errors.endDate && errors.endDate.type === "required" && (
                       <FormHelperText sx={{ fontSize: 12 }} error>
                         Start date is required
+                      </FormHelperText>
+                    )}
+                       {errors.endDate && errors.endDate.type === "validate" && (
+                      <FormHelperText sx={{ fontSize: 12 }} error>
+                        {errors.endDate.message}
                       </FormHelperText>
                     )}
                   </Box>

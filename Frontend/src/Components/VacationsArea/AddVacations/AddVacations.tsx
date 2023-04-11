@@ -23,16 +23,18 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import dayjs from "dayjs";
 
 function AddVacations(): JSX.Element {
-
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<VacationModel>();
   const navigate = useNavigate();
+  const startDateValue = watch("startDate");
 
   async function send(vacation: VacationModel) {
     try {
@@ -53,12 +55,9 @@ function AddVacations(): JSX.Element {
     }
   };
 
-  function navigateBack(){
+  function navigateBack() {
     navigate("/vacations");
   }
-
-
-
 
   return (
     <div className="AddVacations">
@@ -149,7 +148,6 @@ function AddVacations(): JSX.Element {
                         defaultValue={null}
                         rules={{
                           required: true,
-
                         }}
                         render={({ field }) => (
                           <DatePicker
@@ -178,6 +176,9 @@ function AddVacations(): JSX.Element {
                         defaultValue={null}
                         rules={{
                           required: true,
+                          validate: (value) =>
+                            !dayjs(value).isBefore(dayjs(startDateValue)) ||
+                            "End date must be after start date",
                         }}
                         render={({ field }) => (
                           <DatePicker
@@ -191,6 +192,11 @@ function AddVacations(): JSX.Element {
                     {errors.endDate && errors.endDate.type === "required" && (
                       <FormHelperText sx={{ fontSize: 12 }} error>
                         Start date is required
+                      </FormHelperText>
+                    )}
+                    {errors.endDate && errors.endDate.type === "validate" && (
+                      <FormHelperText sx={{ fontSize: 12 }} error>
+                        {errors.endDate.message}
                       </FormHelperText>
                     )}
                   </Box>
@@ -209,7 +215,7 @@ function AddVacations(): JSX.Element {
                     required: true,
                     pattern: /^[0-9]+([.][0-9]+)?$/,
                     min: 0,
-                    max: 10000
+                    max: 10000,
                   })}
                 />
                 {errors.price && errors.price.type === "required" && (
@@ -228,7 +234,7 @@ function AddVacations(): JSX.Element {
                     Price must be a positive number
                   </FormHelperText>
                 )}
-                 {errors.price && errors.price.type === "max" && (
+                {errors.price && errors.price.type === "max" && (
                   <FormHelperText sx={{ fontSize: 12 }} error>
                     Price must be up to 10,000
                   </FormHelperText>
@@ -270,7 +276,12 @@ function AddVacations(): JSX.Element {
               >
                 Add Vacation
               </Button>
-              <Button variant="contained" type="reset" color="inherit" onClick={navigateBack}>
+              <Button
+                variant="contained"
+                type="reset"
+                color="inherit"
+                onClick={navigateBack}
+              >
                 Cancel
               </Button>
             </FormControl>
@@ -282,4 +293,3 @@ function AddVacations(): JSX.Element {
 }
 
 export default AddVacations;
-
