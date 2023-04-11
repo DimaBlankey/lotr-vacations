@@ -4,7 +4,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    margin-top: 50px;
+    height: 100%;
   }
 
   /* Style the big button */
@@ -20,6 +21,7 @@
     margin: 20px;
     position: relative;
     overflow: hidden;
+  
   }
 
   .Home .big-button::before {

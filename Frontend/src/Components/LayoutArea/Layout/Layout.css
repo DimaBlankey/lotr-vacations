@@ -1,6 +1,17 @@
 .Layout {
-    /* height: 100%;
-    box-sizing: border-box;
-    display: grid; */
-}
-
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .Layout header {
+    flex: 0;
+  }
+  
+  .Layout main {
+    flex: 1;
+  }
+  
+  .Layout footer {
+    flex: 0;
+  }
