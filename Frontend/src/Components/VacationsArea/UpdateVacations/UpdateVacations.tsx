@@ -19,10 +19,10 @@ import {
   InputBase,
   OutlinedInput,
 } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+// import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import dayjs from "dayjs";
 
 function UpdateVacations(): JSX.Element {
@@ -173,6 +173,7 @@ function UpdateVacations(): JSX.Element {
                   </FormHelperText>
                 )}
               </Box>
+
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <Box mt={2} mb={2}>
@@ -182,11 +183,12 @@ function UpdateVacations(): JSX.Element {
                         type="date"
                         {...register("startDate", { required: true })}
                       />
-                      {errors.startDate && errors.startDate.type === "required" && (
-                        <FormHelperText sx={{ fontSize: 12 }} error>
-                           Date is required
-                        </FormHelperText>
-                      )}
+                      {errors.startDate &&
+                        errors.startDate.type === "required" && (
+                          <FormHelperText sx={{ fontSize: 12 }} error>
+                            Date is required
+                          </FormHelperText>
+                        )}
                     </div>
                   </Box>
                 </Grid>
@@ -205,7 +207,7 @@ function UpdateVacations(): JSX.Element {
                       />
                       {errors.endDate && errors.endDate.type === "required" && (
                         <FormHelperText sx={{ fontSize: 12 }} error>
-                           Date is required
+                          Date is required
                         </FormHelperText>
                       )}
                       {errors.endDate && errors.endDate.type === "validate" && (
