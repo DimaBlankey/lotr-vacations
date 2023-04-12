@@ -10,6 +10,8 @@ import {
   Input,
   Grid,
   InputBase,
+  InputLabel,
+  OutlinedInput,
 } from "@mui/material";
 import UserModel from "../../../Models/UserModel";
 import { Control, Controller, useForm } from "react-hook-form";
@@ -25,6 +27,11 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import dayjs from "dayjs";
 
+// import utc from "dayjs/plugin/utc";
+// import timezone from "dayjs/plugin/timezone";
+// dayjs.extend(utc);
+// dayjs.extend(timezone);
+
 function AddVacations(): JSX.Element {
   const {
     register,
@@ -39,6 +46,11 @@ function AddVacations(): JSX.Element {
   async function send(vacation: VacationModel) {
     try {
       vacation.image = (vacation.image as unknown as FileList)[0];
+     
+      vacation.startDate = dayjs(vacation.startDate).format("YYYY-MM-DD");
+      vacation.endDate = dayjs(vacation.endDate).format("YYYY-MM-DD");
+  
+      
       await dataService.addVacation(vacation);
       notifyService.success("Vacation has been added!");
       navigate("/vacations");
@@ -241,17 +253,24 @@ function AddVacations(): JSX.Element {
                 )}
               </Box>
               <Box mt={2} mb={2}>
-                <FormLabel>
-                  {" "}
-                  <CloudUploadIcon /> Upload Image
-                </FormLabel>
-                <input
-                  type="file"
-                  accept="image/*"
-                  {...register("image")}
-                  onChange={handleImageUpload}
-                  required
-                />
+        
+                <FormControl fullWidth variant="outlined" sx={{ mt: 2, mb: 2 }}>
+                  <FormLabel>Upload Image</FormLabel>
+
+                  <OutlinedInput
+                    id="image-file"
+                    type="file"
+                    inputProps={{ accept: "image/*" }}
+                    {...register("image", { required: true })}
+                    onChange={handleImageUpload}
+                  />
+                  {errors.image && errors.image.type === "required" && (
+                    <FormHelperText sx={{ fontSize: 12 }} error>
+                      Image is required
+                    </FormHelperText>
+                  )}
+                </FormControl>
+
                 {image && (
                   <Box
                     mt={2}

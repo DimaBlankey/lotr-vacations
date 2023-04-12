@@ -17,13 +17,13 @@ import {
   Input,
   Grid,
   InputBase,
+  OutlinedInput,
 } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import dayjs from "dayjs";
-
 
 function UpdateVacations(): JSX.Element {
   const params = useParams();
@@ -50,21 +50,17 @@ function UpdateVacations(): JSX.Element {
         setValue("vacationId", responseVacation.vacationId);
         setValue("destination", responseVacation.destination);
         setValue("description", responseVacation.description);
-        // setValue("startDate", responseVacation.startDate);
-        // setValue("endDate", responseVacation.endDate);
-        const date = new Date();
-        const year = date.getUTCFullYear();
-        const month = date.getUTCMonth() + 1;
-        const day = date.getUTCDate();
-        const formattedDate = `${year}-${month
-          .toString()
-          .padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
-        // console.log(responseVacation.startDate);
-        // setValue("startDate", formattedDate);
+        setValue(
+          "startDate",
+          dayjs(responseVacation.startDate).format("YYYY-MM-DD")
+        );
+        setValue(
+          "endDate",
+          dayjs(responseVacation.endDate).format("YYYY-MM-DD")
+        );
+
         setValue("price", responseVacation.price);
-        // setValue("image", responseVacation.image);
-        // console.log(responseVacation.image)
-        // console.log(responseVacation.imageUrl)
+
         setValue("imageUrl", responseVacation.imageUrl);
         setVacation(responseVacation);
       })
@@ -74,6 +70,10 @@ function UpdateVacations(): JSX.Element {
   async function send(vacation: VacationModel) {
     try {
       vacation.image = (vacation.image as unknown as FileList)[0];
+
+      vacation.startDate = dayjs(vacation.startDate).format("YYYY-MM-DD");
+      vacation.endDate = dayjs(vacation.endDate).format("YYYY-MM-DD");
+
       await dataService.updateVacation(vacation);
       notifyService.success("Vacation has been updated");
       navigate("/vacations");
@@ -90,7 +90,7 @@ function UpdateVacations(): JSX.Element {
     }
   };
 
-  function navigateBack(){
+  function navigateBack() {
     navigate("/vacations");
   }
 
@@ -177,62 +177,43 @@ function UpdateVacations(): JSX.Element {
                 <Grid item xs={12} sm={6}>
                   <Box mt={2} mb={2}>
                     <FormLabel>Start Date</FormLabel>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <Controller
-                        name="startDate"
-                        control={control}
-                        defaultValue={null}
-                        rules={{
-                          required: true,
-                        }}
-                        render={({ field }) => (
-                          <DatePicker
-                            value={field.value}
-                            onChange={(newValue) => field.onChange(newValue)}
-                          />
-                        )}
+                    <div className="custom-mui-input">
+                      <input
+                        type="date"
+                        {...register("startDate", { required: true })}
                       />
-                    </LocalizationProvider>
-                    {errors.startDate &&
-                      errors.startDate.type === "required" && (
+                      {errors.startDate && errors.startDate.type === "required" && (
                         <FormHelperText sx={{ fontSize: 12 }} error>
-                          Start date is required
+                           Date is required
                         </FormHelperText>
                       )}
+                    </div>
                   </Box>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Box mt={2} mb={2}>
                     <FormLabel>End Date</FormLabel>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <Controller
-                        name="endDate"
-                        control={control}
-                        defaultValue={null}
-                        rules={{
+                    <div className="custom-mui-input">
+                      <input
+                        type="date"
+                        {...register("endDate", {
                           required: true,
                           validate: (value) =>
-                            !dayjs(value).isBefore(dayjs(startDateValue)) ||
-                            "End date must be after start date",
-                        }}
-                        render={({ field }) => (
-                          <DatePicker
-                            value={field.value}
-                            onChange={(newValue) => field.onChange(newValue)}
-                          />
-                        )}
+                            !startDateValue ||
+                            new Date(value) >= new Date(startDateValue),
+                        })}
                       />
-                    </LocalizationProvider>
-                    {errors.endDate && errors.endDate.type === "required" && (
-                      <FormHelperText sx={{ fontSize: 12 }} error>
-                        Start date is required
-                      </FormHelperText>
-                    )}
-                       {errors.endDate && errors.endDate.type === "validate" && (
-                      <FormHelperText sx={{ fontSize: 12 }} error>
-                        {errors.endDate.message}
-                      </FormHelperText>
-                    )}
+                      {errors.endDate && errors.endDate.type === "required" && (
+                        <FormHelperText sx={{ fontSize: 12 }} error>
+                           Date is required
+                        </FormHelperText>
+                      )}
+                      {errors.endDate && errors.endDate.type === "validate" && (
+                        <FormHelperText sx={{ fontSize: 12 }} error>
+                          End Date cannot be before Start Date
+                        </FormHelperText>
+                      )}
+                    </div>
                   </Box>
                 </Grid>
               </Grid>
@@ -275,16 +256,22 @@ function UpdateVacations(): JSX.Element {
                 )}
               </Box>
               <Box mt={2} mb={2}>
-                <FormLabel>
-                  {" "}
-                  <CloudUploadIcon /> Upload Image
-                </FormLabel>
-                <input
-                  type="file"
-                  accept="image/*"
-                  {...register("image")}
-                  onChange={handleImageUpload}
-                />
+                <FormControl fullWidth variant="outlined" sx={{ mt: 2, mb: 2 }}>
+                  <FormLabel>Upload Image</FormLabel>
+
+                  <OutlinedInput
+                    id="image-file"
+                    type="file"
+                    inputProps={{ accept: "image/*" }}
+                    {...register("image")}
+                    onChange={handleImageUpload}
+                  />
+                  {errors.image && errors.image.type === "required" && (
+                    <FormHelperText sx={{ fontSize: 12 }} error>
+                      Image is required
+                    </FormHelperText>
+                  )}
+                </FormControl>
 
                 {image ? (
                   <Box
@@ -324,7 +311,12 @@ function UpdateVacations(): JSX.Element {
               >
                 Update Vacation
               </Button>
-              <Button variant="contained" type="reset" color="inherit" onClick={navigateBack}>
+              <Button
+                variant="contained"
+                type="reset"
+                color="inherit"
+                onClick={navigateBack}
+              >
                 Cancel
               </Button>
             </FormControl>

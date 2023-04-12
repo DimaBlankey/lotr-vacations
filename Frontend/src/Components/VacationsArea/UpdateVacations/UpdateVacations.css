@@ -19,3 +19,43 @@
       opacity: 1;
     }
   }
+
+  .custom-mui-input {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  .custom-mui-input input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.87);
+    background-color: #fff;
+    outline: none;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  
+  .custom-mui-input input:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  
+  .custom-mui-input::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: transparent;
+    transition: background-color 0.3s;
+  }
+  
+  .custom-mui-input input:focus + .custom-mui-input::after {
+    background-color: #3f51b5;
+  }
+  
