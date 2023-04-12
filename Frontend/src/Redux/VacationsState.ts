@@ -45,11 +45,15 @@ export function vacationsReducer(
       break;
        case VacationsActionType.AddFollower:
         const followedVacation = newState.vacations.find(x => x.vacationId == action.payload.vacationId)
-        if (followedVacation) followedVacation.isFollowing = 1
+        if (followedVacation)
+         followedVacation.isFollowing = 1
+         followedVacation.followersCount += 1
         break;
         case VacationsActionType.DeleteFollower:
           const unFollowedVacation = newState.vacations.find(x => x.vacationId == action.payload.vacationId)
-          if (unFollowedVacation) unFollowedVacation.isFollowing = 0
+          if (unFollowedVacation)
+           unFollowedVacation.isFollowing = 0
+           unFollowedVacation.followersCount -= 1
           break;
     case VacationsActionType.DeleteVacation:
       const indexToDelete = newState.vacations.findIndex(

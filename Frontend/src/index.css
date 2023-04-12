@@ -3,7 +3,7 @@ body,
 #root {
 
 
-  font-family: 'Cinzel Decorative', cursive;
+  /* font-family: 'Cinzel Decorative'; */
 
   height: 100%;
   text-align: center;
@@ -18,6 +18,19 @@ body,
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+h1{
+  font-family: 'Cinzel Decorative';
+}
+
+.Menu{
+  font-family: 'Cinzel Decorative';
+}
+
+.Home{
+  font-family: 'Cinzel Decorative';
+}
+
 
 
 
