@@ -1,19 +1,16 @@
 import { NextFunction, Request, Response } from "express";
 import stripTags from "striptags";
 
-
 function preventXss(request: Request, response: Response, next: NextFunction) {
-
-    // Run on request.body props:
-    for(const prop in request.body) {
-
-        // If string - stript tags:
-        if(typeof request.body[prop] === "string") {
-            request.body[prop] = stripTags(request.body[prop]);
-        }
+  // Run on request.body props:
+  for (const prop in request.body) {
+    // If string - stript tags:
+    if (typeof request.body[prop] === "string") {
+      request.body[prop] = stripTags(request.body[prop]);
     }
+  }
 
-    next();
+  next();
 }
 
 export default preventXss;

@@ -24,7 +24,6 @@ GROUP BY V.vacationId
 ORDER BY V.startDate;
   `;
   const vacations = await dal.execute(sql, [userId]);
-  // if (!vacations) throw new ResourceNotFoundError(vacations);
   return vacations;
 }
 
@@ -119,7 +118,7 @@ async function getVacationImageName(vacationId: number): Promise<string> {
 async function addFollowVacation(
   followers: FollowersModel
 ): Promise<FollowersModel> {
-  // followers.validateFollowerPost();
+  followers.validateFollowerPost();
 
   const sqlCheck =
     "SELECT * FROM followers WHERE userId = ? AND vacationId = ?";

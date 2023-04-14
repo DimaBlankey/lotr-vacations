@@ -27,8 +27,7 @@ function createToken(user: UserModel): string {
 }
 
 // The token is in a header named authorization
-// authorization: "Bearer the-token"
-//                 01234567
+// authorization: "Bearer the-token"  - to receive token, extract after the word "Bearer". you can use method substring(7)
 async function verifyToken(request: Request): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
 
