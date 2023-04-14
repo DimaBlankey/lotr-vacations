@@ -2,8 +2,8 @@ import Joi from "joi";
 import { ValidationError } from "./client-errors";
 
 class CredentialsModel {
-   email: string;
-   password: string;
+  email: string;
+  password: string;
 
   public constructor(credentials: CredentialsModel) {
     this.email = credentials.email;
@@ -12,7 +12,7 @@ class CredentialsModel {
 
   private static credentialsSchema = Joi.object({
     email: Joi.string().email().required(),
-    password: Joi.string().required()
+    password: Joi.string().required(),
   });
 
   public validateCredentials(): void {
