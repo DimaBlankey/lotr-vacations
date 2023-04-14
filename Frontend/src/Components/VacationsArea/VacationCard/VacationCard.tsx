@@ -1,8 +1,6 @@
 import VacationModel from "../../../Models/VacationModel";
-import "./VacationCard.css";
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -10,7 +8,6 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -20,28 +17,13 @@ import UserModel from "../../../Models/UserModel";
 import dataService from "../../../Services/DataService";
 import FollowersModel from "../../../Models/FollowersModel";
 import { authStore } from "../../../Redux/AuthState";
-import {
-  VacationsAction,
-  VacationsState,
-  vacationsStore,
-} from "../../../Redux/VacationsState";
-import { Store } from "redux";
-import { Socket, io } from "socket.io-client";
 import notifyService from "../../../Services/NotifyService";
-import { Button, Modal } from "@mui/material";
-import Dialog from "@mui/material/Dialog";
-
-// let socket: Socket;
 
 interface VacationCardProps {
   vacation: VacationModel;
 }
 
 function VacationCard(props: VacationCardProps): JSX.Element {
-  // function connect(): void {
-  //   socket = io("http://localhost:4000");
-  // }
-
   const [user, setUser] = useState<UserModel>();
   const [vacation, setVacation] = useState<VacationModel>(props.vacation);
   const role = authStore.getState().user?.role;
@@ -128,22 +110,9 @@ function VacationCard(props: VacationCardProps): JSX.Element {
                 >
                   UPDATE
                 </MenuItem>
-                <MenuItem
-                  sx={{ color: "red" }}
-                  // component={NavLink}
-                  // to={`/delete/${vacation.vacationId}`}
-                  onClick={deleteMe}
-                >
+                <MenuItem sx={{ color: "red" }} onClick={deleteMe}>
                   DELETE
                 </MenuItem>
-                {/* {showDialog && (
-        <DeleteVacation.Dialog
-          title="Confirm Delete"
-          message="Are you sure you want to delete?"
-          onClose={handleDialogClose}
-          onOk={handleDialogOk}
-        />
-      )} */}
               </Menu>
             </>
           }
@@ -165,16 +134,8 @@ function VacationCard(props: VacationCardProps): JSX.Element {
         </CardContent>
         <CardActions disableSpacing sx={{ position: "relative" }}>
           {role == "admin" && (
-            <IconButton
-              disabled
-              aria-label="add to follow"
-              onClick={handleFollow}
-            >
-              {vacation.isFollowing === 1 ? (
-                <FavoriteIcon style={{ color: "red" }} />
-              ) : (
-                <FavoriteIcon />
-              )}
+            <IconButton disabled aria-label="add to follow">
+              <FavoriteIcon />
               <Typography variant="body2" color="text.secondary">
                 {vacation.followersCount}
               </Typography>

@@ -5,9 +5,12 @@ import { authStore } from "../../../Redux/AuthState";
 import { NavLink, useNavigate } from "react-router-dom";
 import authService from "../../../Services/AuthService";
 import notifyService from "../../../Services/NotifyService";
-import { VacationsActionType, vacationsStore } from "../../../Redux/VacationsState";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import LogoutIcon from '@mui/icons-material/Logout';
+import {
+  VacationsActionType,
+  vacationsStore,
+} from "../../../Redux/VacationsState";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 function AuthMenu(): JSX.Element {
   const [user, setUser] = useState<UserModel>();
@@ -21,21 +24,23 @@ function AuthMenu(): JSX.Element {
 
   const navigate = useNavigate();
 
-   function logout(){
-      authService.logout();
-      notifyService.success("Goodby!");
-      navigate("/home");
-      vacationsStore.dispatch({
-        type: VacationsActionType.ClearState,
-        payload: undefined
-      });
+  function logout() {
+    authService.logout();
+    notifyService.success("Goodby!");
+    navigate("/home");
+    vacationsStore.dispatch({
+      type: VacationsActionType.ClearState,
+      payload: undefined,
+    });
   }
 
   return (
     <div className="AuthMenu">
       {!user && (
         <div>
-          <span><AccountCircleIcon className="AccountCircleIcon"/> </span>
+          <span>
+            <AccountCircleIcon className="AccountCircleIcon" />{" "}
+          </span>
           <NavLink to="/login">Login</NavLink>
           <span> | </span>
           <NavLink to="/sign-up">Sign up</NavLink>
@@ -43,11 +48,16 @@ function AuthMenu(): JSX.Element {
       )}
       {user && (
         <div>
-          <span><AccountCircleIcon className="AccountCircleIcon"/>
-            Hello, {user.firstName} {user.lastName} {" "}
+          <span>
+            <AccountCircleIcon className="AccountCircleIcon" />
+            Hello, {user.firstName} {user.lastName}{" "}
           </span>
-          <NavLink to="/home" onClick={logout}className="LogoutLink">| Logout</NavLink>
-          <NavLink to="/home" onClick={logout}><LogoutIcon /></NavLink>
+          <NavLink to="/home" onClick={logout} className="LogoutLink">
+            | Logout
+          </NavLink>
+          <NavLink to="/home" onClick={logout}>
+            <LogoutIcon />
+          </NavLink>
         </div>
       )}
     </div>

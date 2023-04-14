@@ -7,30 +7,20 @@ import {
   FormHelperText,
   Box,
   FormLabel,
-  Input,
   Grid,
-  InputBase,
-  InputLabel,
   OutlinedInput,
 } from "@mui/material";
-import UserModel from "../../../Models/UserModel";
-import { Control, Controller, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
-import authService from "../../../Services/AuthService";
-import { NavLink, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import notifyService from "../../../Services/NotifyService";
 import VacationModel from "../../../Models/VacationModel";
 import dataService from "../../../Services/DataService";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import dayjs from "dayjs";
 
-// import utc from "dayjs/plugin/utc";
-// import timezone from "dayjs/plugin/timezone";
-// dayjs.extend(utc);
-// dayjs.extend(timezone);
 
 function AddVacations(): JSX.Element {
   const {
@@ -281,7 +271,7 @@ function AddVacations(): JSX.Element {
                   >
                     <img
                       src={URL.createObjectURL(image)}
-                      alt="uploaded-image"
+                      alt="uploaded"
                       style={{ maxWidth: "90%", maxHeight: "90%" }}
                     />
                   </Box>

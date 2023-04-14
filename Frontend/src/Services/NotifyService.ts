@@ -3,19 +3,19 @@ import { Notyf } from "notyf";
 class NotifyService {
   private notyf = new Notyf({
     duration: 3000,
-    position: { x: "center", y: "center" },
+    position: { x: "right", y: "bottom" },
     types: [
       {
         type: "success",
         background: "black",
         icon: false,
-        className:"notyf__notification--success",   
+        className: "notyf__notification--success",
       },
       {
         type: "error",
         background: "black",
         icon: false,
-        className:"notyf__notification--error",
+        className: "notyf__notification--error",
       },
     ],
     dismissible: true,

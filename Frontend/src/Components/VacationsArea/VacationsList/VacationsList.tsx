@@ -13,7 +13,6 @@ import {
   Checkbox,
   Fab,
   FormControlLabel,
-  FormGroup,
   Pagination,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -59,7 +58,7 @@ function VacationsList(): JSX.Element {
     navigate("/reports");
   }
 
-  //=================== Pagination =====================
+  //=================== Pagination and Filters =====================
   const PAGE_SIZE = 9;
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
@@ -71,7 +70,6 @@ function VacationsList(): JSX.Element {
     setCurrentPage(pageNumber);
   };
 
-  //=================== Filters =====================
   const [filters, setFilters] = useState({
     followed: false,
     future: false,

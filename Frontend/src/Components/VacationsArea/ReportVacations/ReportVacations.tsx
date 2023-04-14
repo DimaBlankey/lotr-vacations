@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import "./ReportVacations.css";
 import VacationModel from "../../../Models/VacationModel";
-import UserModel from "../../../Models/UserModel";
-import { authStore } from "../../../Redux/AuthState";
 import dataService from "../../../Services/DataService";
 import notifyService from "../../../Services/NotifyService";
-import { vacationsStore } from "../../../Redux/VacationsState";
 import {
   Chart as ChartJS,
   CategoryScale,

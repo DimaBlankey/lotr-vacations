@@ -19,15 +19,14 @@ class DataService {
   }
 
   public async getOneVacation(vacationId: number): Promise<VacationModel> {
-    
     let vacations = vacationsStore.getState().vacations;
-    let vacation = vacations.find(v => v.vacationId === vacationId) 
+    let vacation = vacations.find((v) => v.vacationId === vacationId);
 
-    if(!vacation){
-    const response = await axios.get<VacationModel>(
-      appConfig.vacationsUrl + vacationId
-    );
-     vacation = response.data;
+    if (!vacation) {
+      const response = await axios.get<VacationModel>(
+        appConfig.vacationsUrl + vacationId
+      );
+      vacation = response.data;
     }
     return vacation;
   }
@@ -75,16 +74,6 @@ class DataService {
       type: VacationsActionType.UpdateVacation,
       payload: updatedVacation,
     });
-
-    // const response = await axios.put<VacationModel>(
-    //   appConfig.vacationsUrl + vacation.vacationId,
-    //   vacation
-    // );
-    // const updatedVacation = response.data;
-    // vacationsStore.dispatch({
-    //   type: VacationsActionType.UpdateVacation,
-    //   payload: updatedVacation,
-    // });
   }
 
   public async deleteVacation(vacationId: number): Promise<void> {

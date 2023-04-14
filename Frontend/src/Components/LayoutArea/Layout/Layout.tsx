@@ -1,8 +1,5 @@
-import Home from "../../HomeArea/Home/Home";
-import VacationsList from "../../VacationsArea/VacationsList/VacationsList";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-import Menu from "../Menu/Menu";
 import Routing from "../Routing/Routing";
 import "./Layout.css";
 
@@ -13,7 +10,7 @@ function Layout(): JSX.Element {
         <Header />
       </header>
       <main>
-      <Routing />
+        <Routing />
       </main>
       <footer>
         <Footer />

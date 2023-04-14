@@ -10,7 +10,6 @@ import {
   IconButton,
 } from "@mui/material";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import { useForm } from "react-hook-form";

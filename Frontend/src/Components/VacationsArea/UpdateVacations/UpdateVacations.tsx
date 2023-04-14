@@ -1,9 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "./UpdateVacations.css";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import VacationModel from "../../../Models/VacationModel";
 import { useEffect, useState } from "react";
-import { data } from "jquery";
 import dataService from "../../../Services/DataService";
 import notifyService from "../../../Services/NotifyService";
 import {
@@ -14,15 +13,9 @@ import {
   FormHelperText,
   Box,
   FormLabel,
-  Input,
   Grid,
-  InputBase,
   OutlinedInput,
 } from "@mui/material";
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-// import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import dayjs from "dayjs";
 
 function UpdateVacations(): JSX.Element {
@@ -30,7 +23,6 @@ function UpdateVacations(): JSX.Element {
 
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors },
     setValue,
@@ -285,7 +277,7 @@ function UpdateVacations(): JSX.Element {
                   >
                     <img
                       src={URL.createObjectURL(image)}
-                      alt="uploaded-image"
+                      alt="uploaded"
                       style={{ maxWidth: "90%", maxHeight: "90%" }}
                     />
                   </Box>
@@ -299,7 +291,7 @@ function UpdateVacations(): JSX.Element {
                   >
                     <img
                       src={vacation?.imageUrl}
-                      alt="default-image"
+                      alt="default"
                       style={{ maxWidth: "90%", maxHeight: "90%" }}
                     />
                   </Box>
