@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import UserModel from "../../../Models/UserModel";
 import { authStore } from "../../../Redux/AuthState";
 import {
+  Alert,
   Box,
   Checkbox,
   Fab,
@@ -170,6 +171,9 @@ function VacationsList(): JSX.Element {
           </div>
         )}
       </div>
+      <Alert className="alert" severity="info" hidden={getFilteredVacations().length !== 0}>
+        No vacations found... please reset your filters.
+      </Alert>
     </div>
   );
 }
