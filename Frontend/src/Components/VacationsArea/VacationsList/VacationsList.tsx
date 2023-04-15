@@ -12,6 +12,7 @@ import {
   Alert,
   Box,
   Checkbox,
+  CircularProgress,
   Fab,
   FormControlLabel,
   Pagination,
@@ -151,6 +152,7 @@ function VacationsList(): JSX.Element {
           label="Active Vacations Now"
         />
       </Box>
+      {vacations.length === 0 &&  <CircularProgress />}
       <div className="VacationsList-cards">
         {getPageVacations().map((v) => (
           <div key={v.vacationId} className="vacation-card">
@@ -171,9 +173,11 @@ function VacationsList(): JSX.Element {
           </div>
         )}
       </div>
+      {vacations.length > 0 &&  (
       <Alert className="alert" severity="info" hidden={getFilteredVacations().length !== 0}>
         No vacations found... please reset your filters.
       </Alert>
+      )}
     </div>
   );
 }
