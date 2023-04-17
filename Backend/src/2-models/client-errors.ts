@@ -32,7 +32,7 @@ export class ValidationError extends ClientError {
 
 // Authentication error:
 export class UnauthorizedError extends ClientError {
-  public constructor(message: string) {
-    super(401, message);
+  public constructor(message: string, code: number = 401) { // Set the default value for the code parameter
+    super(code, message);
   }
 }

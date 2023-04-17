@@ -53,7 +53,7 @@ async function verifyToken(request: Request): Promise<boolean> {
         jwt.verify(token, secretKey, err => {
 
             if (err) {
-                reject(new UnauthorizedError("Invalid token"));
+                reject(new UnauthorizedError("Invalid token", 498));
                 return;
             }
 
@@ -90,7 +90,7 @@ async function verifyAdmin(request: Request): Promise<boolean> {
         jwt.verify(token, secretKey, (err, container: { user: UserModel }) => {
 
             if (err) {
-                reject(new UnauthorizedError("Invalid token"));
+                reject(new UnauthorizedError("Invalid token", 498));
                 return;
             }
 

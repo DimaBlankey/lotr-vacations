@@ -7,7 +7,6 @@ import interceptorService from './Services/InterceptorService';
 
 interceptorService.create();
 
-
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
