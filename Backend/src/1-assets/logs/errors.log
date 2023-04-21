@@ -2231,3 +2231,257 @@ Invalid token
 Mon, 17 Apr 2023 09:58:45 GMT
 Incorrect email or password
 ----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 05:46:46 GMT
+Route / not found
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 05:46:46 GMT
+Route /favicon.ico not found
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 05:50:10 GMT
+Route / not found
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 05:50:24 GMT
+Route /api/vacaitons not found
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 05:50:44 GMT
+Incorrect email or password
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 05:50:57 GMT
+Incorrect email or password
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 05:51:00 GMT
+Incorrect email or password
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 06:00:14 GMT
+connect ECONNREFUSED 127.0.0.1:3306
+Stack: Error: connect ECONNREFUSED 127.0.0.1:3306
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1494:16)
+    --------------------
+    at Protocol._enqueue (/app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at Protocol.handshake (/app/node_modules/mysql/lib/protocol/Protocol.js:51:23)
+    at PoolConnection.connect (/app/node_modules/mysql/lib/Connection.js:116:18)
+    at Pool.getConnection (/app/node_modules/mysql/lib/Pool.js:48:16)
+    at Pool.query (/app/node_modules/mysql/lib/Pool.js:202:8)
+    at /app/src/4-utils/dal.ts:18:20
+    at new Promise (<anonymous>)
+    at Object.execute (/app/src/4-utils/dal.ts:15:12)
+    at Object.<anonymous> (/app/src/5-services/auth-services.ts:81:27)
+    at Generator.next (<anonymous>)
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 06:12:40 GMT
+Route / not found
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 06:15:57 GMT
+connect ECONNREFUSED 127.0.0.1:3306
+Stack: Error: connect ECONNREFUSED 127.0.0.1:3306
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1494:16)
+    --------------------
+    at Protocol._enqueue (/app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at Protocol.handshake (/app/node_modules/mysql/lib/protocol/Protocol.js:51:23)
+    at PoolConnection.connect (/app/node_modules/mysql/lib/Connection.js:116:18)
+    at Pool.getConnection (/app/node_modules/mysql/lib/Pool.js:48:16)
+    at Pool.query (/app/node_modules/mysql/lib/Pool.js:202:8)
+    at /app/src/4-utils/dal.ts:18:20
+    at new Promise (<anonymous>)
+    at Object.execute (/app/src/4-utils/dal.ts:15:12)
+    at Object.<anonymous> (/app/src/5-services/auth-services.ts:81:27)
+    at Generator.next (<anonymous>)
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 06:16:02 GMT
+connect ECONNREFUSED 127.0.0.1:3306
+Stack: Error: connect ECONNREFUSED 127.0.0.1:3306
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1494:16)
+    --------------------
+    at Protocol._enqueue (/app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at Protocol.handshake (/app/node_modules/mysql/lib/protocol/Protocol.js:51:23)
+    at PoolConnection.connect (/app/node_modules/mysql/lib/Connection.js:116:18)
+    at Pool.getConnection (/app/node_modules/mysql/lib/Pool.js:48:16)
+    at Pool.query (/app/node_modules/mysql/lib/Pool.js:202:8)
+    at /app/src/4-utils/dal.ts:18:20
+    at new Promise (<anonymous>)
+    at Object.execute (/app/src/4-utils/dal.ts:15:12)
+    at Object.<anonymous> (/app/src/5-services/auth-services.ts:81:27)
+    at Generator.next (<anonymous>)
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 06:16:12 GMT
+connect ECONNREFUSED 127.0.0.1:3306
+Stack: Error: connect ECONNREFUSED 127.0.0.1:3306
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1494:16)
+    --------------------
+    at Protocol._enqueue (/app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at Protocol.handshake (/app/node_modules/mysql/lib/protocol/Protocol.js:51:23)
+    at PoolConnection.connect (/app/node_modules/mysql/lib/Connection.js:116:18)
+    at Pool.getConnection (/app/node_modules/mysql/lib/Pool.js:48:16)
+    at Pool.query (/app/node_modules/mysql/lib/Pool.js:202:8)
+    at /app/src/4-utils/dal.ts:18:20
+    at new Promise (<anonymous>)
+    at Object.execute (/app/src/4-utils/dal.ts:15:12)
+    at Object.<anonymous> (/app/src/5-services/auth-services.ts:81:27)
+    at Generator.next (<anonymous>)
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 06:23:44 GMT
+Route / not found
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 06:42:14 GMT
+Route / not found
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 06:42:14 GMT
+Route /favicon.ico not found
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 06:44:49 GMT
+connect ECONNREFUSED 127.0.0.1:3306
+Stack: Error: connect ECONNREFUSED 127.0.0.1:3306
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1494:16)
+    --------------------
+    at Protocol._enqueue (/app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at Protocol.handshake (/app/node_modules/mysql/lib/protocol/Protocol.js:51:23)
+    at PoolConnection.connect (/app/node_modules/mysql/lib/Connection.js:116:18)
+    at Pool.getConnection (/app/node_modules/mysql/lib/Pool.js:48:16)
+    at Pool.query (/app/node_modules/mysql/lib/Pool.js:202:8)
+    at /app/src/4-utils/dal.ts:18:20
+    at new Promise (<anonymous>)
+    at Object.execute (/app/src/4-utils/dal.ts:15:12)
+    at Object.<anonymous> (/app/src/5-services/auth-services.ts:81:27)
+    at Generator.next (<anonymous>)
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 06:44:54 GMT
+connect ECONNREFUSED 127.0.0.1:3306
+Stack: Error: connect ECONNREFUSED 127.0.0.1:3306
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1494:16)
+    --------------------
+    at Protocol._enqueue (/app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at Protocol.handshake (/app/node_modules/mysql/lib/protocol/Protocol.js:51:23)
+    at PoolConnection.connect (/app/node_modules/mysql/lib/Connection.js:116:18)
+    at Pool.getConnection (/app/node_modules/mysql/lib/Pool.js:48:16)
+    at Pool.query (/app/node_modules/mysql/lib/Pool.js:202:8)
+    at /app/src/4-utils/dal.ts:18:20
+    at new Promise (<anonymous>)
+    at Object.execute (/app/src/4-utils/dal.ts:15:12)
+    at Object.<anonymous> (/app/src/5-services/auth-services.ts:81:27)
+    at Generator.next (<anonymous>)
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 07:39:04 GMT
+ER_DBACCESS_DENIED_ERROR: Access denied for user 'Alice'@'%' to database 'dimonblank'
+Stack: Error: ER_DBACCESS_DENIED_ERROR: Access denied for user 'Alice'@'%' to database 'dimonblank'
+    at Handshake.Sequence._packetToError (/app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+    at Handshake.ErrorPacket (/app/node_modules/mysql/lib/protocol/sequences/Handshake.js:123:18)
+    at Protocol._parsePacket (/app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+    at Parser._parsePacket (/app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+    at Parser.write (/app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+    at Protocol.write (/app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+    at Socket.<anonymous> (/app/node_modules/mysql/lib/Connection.js:88:28)
+    at Socket.<anonymous> (/app/node_modules/mysql/lib/Connection.js:526:10)
+    at Socket.emit (node:events:513:28)
+    at Socket.emit (node:domain:489:12)
+    --------------------
+    at Protocol._enqueue (/app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at Protocol.handshake (/app/node_modules/mysql/lib/protocol/Protocol.js:51:23)
+    at PoolConnection.connect (/app/node_modules/mysql/lib/Connection.js:116:18)
+    at Pool.getConnection (/app/node_modules/mysql/lib/Pool.js:48:16)
+    at Pool.query (/app/node_modules/mysql/lib/Pool.js:202:8)
+    at /app/src/4-utils/dal.ts:18:20
+    at new Promise (<anonymous>)
+    at Object.execute (/app/src/4-utils/dal.ts:15:12)
+    at Object.<anonymous> (/app/src/5-services/auth-services.ts:81:27)
+    at Generator.next (<anonymous>)
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 07:39:10 GMT
+ER_DBACCESS_DENIED_ERROR: Access denied for user 'Alice'@'%' to database 'dimonblank'
+Stack: Error: ER_DBACCESS_DENIED_ERROR: Access denied for user 'Alice'@'%' to database 'dimonblank'
+    at Handshake.Sequence._packetToError (/app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+    at Handshake.ErrorPacket (/app/node_modules/mysql/lib/protocol/sequences/Handshake.js:123:18)
+    at Protocol._parsePacket (/app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+    at Parser._parsePacket (/app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+    at Parser.write (/app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+    at Protocol.write (/app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+    at Socket.<anonymous> (/app/node_modules/mysql/lib/Connection.js:88:28)
+    at Socket.<anonymous> (/app/node_modules/mysql/lib/Connection.js:526:10)
+    at Socket.emit (node:events:513:28)
+    at Socket.emit (node:domain:489:12)
+    --------------------
+    at Protocol._enqueue (/app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at Protocol.handshake (/app/node_modules/mysql/lib/protocol/Protocol.js:51:23)
+    at PoolConnection.connect (/app/node_modules/mysql/lib/Connection.js:116:18)
+    at Pool.getConnection (/app/node_modules/mysql/lib/Pool.js:48:16)
+    at Pool.query (/app/node_modules/mysql/lib/Pool.js:202:8)
+    at /app/src/4-utils/dal.ts:18:20
+    at new Promise (<anonymous>)
+    at Object.execute (/app/src/4-utils/dal.ts:15:12)
+    at Object.<anonymous> (/app/src/5-services/auth-services.ts:81:27)
+    at Generator.next (<anonymous>)
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 07:39:15 GMT
+ER_DBACCESS_DENIED_ERROR: Access denied for user 'Alice'@'%' to database 'dimonblank'
+Stack: Error: ER_DBACCESS_DENIED_ERROR: Access denied for user 'Alice'@'%' to database 'dimonblank'
+    at Handshake.Sequence._packetToError (/app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+    at Handshake.ErrorPacket (/app/node_modules/mysql/lib/protocol/sequences/Handshake.js:123:18)
+    at Protocol._parsePacket (/app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+    at Parser._parsePacket (/app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+    at Parser.write (/app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+    at Protocol.write (/app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+    at Socket.<anonymous> (/app/node_modules/mysql/lib/Connection.js:88:28)
+    at Socket.<anonymous> (/app/node_modules/mysql/lib/Connection.js:526:10)
+    at Socket.emit (node:events:513:28)
+    at Socket.emit (node:domain:489:12)
+    --------------------
+    at Protocol._enqueue (/app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at Protocol.handshake (/app/node_modules/mysql/lib/protocol/Protocol.js:51:23)
+    at PoolConnection.connect (/app/node_modules/mysql/lib/Connection.js:116:18)
+    at Pool.getConnection (/app/node_modules/mysql/lib/Pool.js:48:16)
+    at Pool.query (/app/node_modules/mysql/lib/Pool.js:202:8)
+    at /app/src/4-utils/dal.ts:18:20
+    at new Promise (<anonymous>)
+    at Object.execute (/app/src/4-utils/dal.ts:15:12)
+    at Object.<anonymous> (/app/src/5-services/auth-services.ts:81:27)
+    at Generator.next (<anonymous>)
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 07:41:43 GMT
+ER_DBACCESS_DENIED_ERROR: Access denied for user 'Alice'@'%' to database 'dimonblank'
+Stack: Error: ER_DBACCESS_DENIED_ERROR: Access denied for user 'Alice'@'%' to database 'dimonblank'
+    at Handshake.Sequence._packetToError (/app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+    at Handshake.ErrorPacket (/app/node_modules/mysql/lib/protocol/sequences/Handshake.js:123:18)
+    at Protocol._parsePacket (/app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+    at Parser._parsePacket (/app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+    at Parser.write (/app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+    at Protocol.write (/app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+    at Socket.<anonymous> (/app/node_modules/mysql/lib/Connection.js:88:28)
+    at Socket.<anonymous> (/app/node_modules/mysql/lib/Connection.js:526:10)
+    at Socket.emit (node:events:513:28)
+    at Socket.emit (node:domain:489:12)
+    --------------------
+    at Protocol._enqueue (/app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at Protocol.handshake (/app/node_modules/mysql/lib/protocol/Protocol.js:51:23)
+    at PoolConnection.connect (/app/node_modules/mysql/lib/Connection.js:116:18)
+    at Pool.getConnection (/app/node_modules/mysql/lib/Pool.js:48:16)
+    at Pool.query (/app/node_modules/mysql/lib/Pool.js:202:8)
+    at /app/src/4-utils/dal.ts:18:20
+    at new Promise (<anonymous>)
+    at Object.execute (/app/src/4-utils/dal.ts:15:12)
+    at Object.<anonymous> (/app/src/5-services/auth-services.ts:81:27)
+    at Generator.next (<anonymous>)
+----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 07:45:37 GMT
+ER_DBACCESS_DENIED_ERROR: Access denied for user 'Alice'@'%' to database 'dimonblank'
+Stack: Error: ER_DBACCESS_DENIED_ERROR: Access denied for user 'Alice'@'%' to database 'dimonblank'
+    at Handshake.Sequence._packetToError (/app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+    at Handshake.ErrorPacket (/app/node_modules/mysql/lib/protocol/sequences/Handshake.js:123:18)
+    at Protocol._parsePacket (/app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+    at Parser._parsePacket (/app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+    at Parser.write (/app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+    at Protocol.write (/app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+    at Socket.<anonymous> (/app/node_modules/mysql/lib/Connection.js:88:28)
+    at Socket.<anonymous> (/app/node_modules/mysql/lib/Connection.js:526:10)
+    at Socket.emit (node:events:513:28)
+    at Socket.emit (node:domain:489:12)
+    --------------------
+    at Protocol._enqueue (/app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at Protocol.handshake (/app/node_modules/mysql/lib/protocol/Protocol.js:51:23)
+    at PoolConnection.connect (/app/node_modules/mysql/lib/Connection.js:116:18)
+    at Pool.getConnection (/app/node_modules/mysql/lib/Pool.js:48:16)
+    at Pool.query (/app/node_modules/mysql/lib/Pool.js:202:8)
+    at /app/src/4-utils/dal.ts:18:20
+    at new Promise (<anonymous>)
+    at Object.execute (/app/src/4-utils/dal.ts:15:12)
+    at Object.<anonymous> (/app/src/5-services/auth-services.ts:81:27)
+    at Generator.next (<anonymous>)
+----------------------------------------------------------------------------------------------------

@@ -1,0 +1,100 @@
+# List of all services (containers):
+services:
+  # 1.database service:
+  lotr-vacations-database-service:
+    # Database image name:
+    image: dimonblank/lotr-vacations-database-image:1.0
+
+    # Build image from Dockerfile location:
+    build: ./Database
+
+    # Container name:
+    container_name: lotr-vacations-database-container
+
+    # Port binding:
+    ports:
+      - 3306:3306
+
+    # Restart policy - on crash - what do we need to do?
+    restart: unless-stopped
+
+    # Evironment Variables used inside our database:
+    environment:
+      - PORT=4000
+      - MYSQL_HOST=lotr-vacations-database-service
+      - MYSQL_DATABASE=lotr-vacations
+      - MYSQL_USER=Alice
+      - MYSQL_PASSWORD=Wonderland
+      - MYSQL_ROOT_PASSWORD=Wonderland
+
+    # Named Volume for persisting the data:
+    volumes:
+      - lotr-vacations-db:/var/lib/mysql
+
+  # --------------------------------------------------------------------
+
+  # 2. Backend REST API service:
+  lotr-vacations-backend-service:
+    # Image name to create:
+    image: dimonblank/lotr-vacations-backend-image:1.0
+
+    # Build image from following Dockerfile location:
+    build: ./Backend
+
+    # Container name to create:
+    container_name: lotr-vacations-backend-container
+
+    # Port binding (host-port:container-port)
+    ports:
+      - 4000:4000
+
+    # Restart policy - on crash - what do we need to do?
+    restart: unless-stopped
+
+    # Evironment Variables used inside our REST API:
+    environment:
+      - PORT=4000
+      - MYSQL_HOST=lotr-vacations-database-service # Database service name is the host name.
+      - MYSQL_DATABASE=lotr-vacations
+      - MYSQL_USER=Alice
+      - MYSQL_PASSWORD=Wonderland
+
+    # Host volume for Hot-Reloading:
+    volumes:
+      - ./Backend:/app
+
+    depends_on:
+      - lotr-vacations-database-service
+
+  # --------------------------------------------------------------------
+
+  # 3. Frontend service:
+  lotr-vacations-frontend-service:
+    # Frontend image:
+    image: dimonblank/lotr-vacations-frontend-image:1.0
+
+    # Build image:
+    build: ./Frontend
+
+    # Container:
+    container_name: lotr-vacations-frontend-container
+
+    # Port binding:
+    ports:
+      - 3000:3000
+
+    # Restart policy - on crash - what do we need to do?
+    restart: unless-stopped
+
+    # Host Volume for hot reloading:
+    volumes:
+      - ./Frontend:/app
+
+    depends_on:
+      - lotr-vacations-backend-service
+
+  # --------------------------------------------------------------------
+
+# List all your Named Volumes here:
+volumes:
+  lotr-vacations-db:
