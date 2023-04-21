@@ -254,7 +254,7 @@ function UpdateVacations(): JSX.Element {
                   <FormLabel>Upload Image</FormLabel>
 
                   <OutlinedInput
-                    id="image-file"
+                    
                     type="file"
                     inputProps={{ accept: "image/*" }}
                     {...register("image")}

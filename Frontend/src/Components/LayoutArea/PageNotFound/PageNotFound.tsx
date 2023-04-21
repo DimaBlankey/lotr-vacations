@@ -19,7 +19,7 @@ function PageNotFound(): JSX.Element {
   return (
     <div className="PageNotFound">
       <>
-        <video autoPlay muted loop id="myVideo">
+        <video autoPlay muted loop className="myVideo">
           <source src={randomVideo} type="video/mp4" />
         </video>
         <div className="content">
