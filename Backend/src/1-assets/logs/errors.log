@@ -2485,3 +2485,19 @@ Stack: Error: ER_DBACCESS_DENIED_ERROR: Access denied for user 'Alice'@'%' to da
     at Object.<anonymous> (/app/src/5-services/auth-services.ts:81:27)
     at Generator.next (<anonymous>)
 ----------------------------------------------------------------------------------------------------
+Fri, 21 Apr 2023 08:20:44 GMT
+connect ECONNREFUSED ::1:3306
+Stack: Error: connect ECONNREFUSED ::1:3306
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1300:16)
+    --------------------
+    at Protocol._enqueue (C:\Users\dima\Downloads\לימודי FULL STACK\lotr-vacations\Backend\node_modules\mysql\lib\protocol\Protocol.js:144:48)
+    at Protocol.handshake (C:\Users\dima\Downloads\לימודי FULL STACK\lotr-vacations\Backend\node_modules\mysql\lib\protocol\Protocol.js:51:23)
+    at PoolConnection.connect (C:\Users\dima\Downloads\לימודי FULL STACK\lotr-vacations\Backend\node_modules\mysql\lib\Connection.js:116:18)
+    at Pool.getConnection (C:\Users\dima\Downloads\לימודי FULL STACK\lotr-vacations\Backend\node_modules\mysql\lib\Pool.js:48:16)
+    at Pool.query (C:\Users\dima\Downloads\לימודי FULL STACK\lotr-vacations\Backend\node_modules\mysql\lib\Pool.js:202:8)
+    at C:\Users\dima\Downloads\לימודי FULL STACK\lotr-vacations\Backend\src\4-utils\dal.ts:18:20
+    at new Promise (<anonymous>)
+    at Object.execute (C:\Users\dima\Downloads\לימודי FULL STACK\lotr-vacations\Backend\src\4-utils\dal.ts:15:12)
+    at Object.<anonymous> (C:\Users\dima\Downloads\לימודי FULL STACK\lotr-vacations\Backend\src\5-services\auth-services.ts:81:27)
+    at Generator.next (<anonymous>)
+----------------------------------------------------------------------------------------------------
